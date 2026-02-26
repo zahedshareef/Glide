@@ -217,7 +217,7 @@
                     <StackPanel>
                         <TextBlock Text="Filter Mode" FontWeight="Medium"/>
                         <TextBlock Text="Choose how the app list below is interpreted"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                     </StackPanel>
                 </ui:CardControl.Header>
                 <StackPanel Orientation="Horizontal">

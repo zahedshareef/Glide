@@ -16,7 +16,7 @@
                     <StackPanel>
                         <TextBlock Text="Enable SmoothScroller" FontWeight="Medium"/>
                         <TextBlock Text="Apply smooth scrolling to all compatible applications"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                     </StackPanel>
                 </ui:CardControl.Header>
                 <ui:ToggleSwitch x:Name="EnableToggle" Checked="EnableToggle_Changed" Unchecked="EnableToggle_Changed"/>
@@ -28,7 +28,7 @@
                     <StackPanel>
                         <TextBlock Text="Start with Windows" FontWeight="Medium"/>
                         <TextBlock Text="Launch SmoothScroller automatically on login"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                     </StackPanel>
                 </ui:CardControl.Header>
                 <ui:ToggleSwitch x:Name="AutoStartToggle" Checked="AutoStartToggle_Changed" Unchecked="AutoStartToggle_Changed"/>
@@ -40,7 +40,7 @@
                     <StackPanel>
                         <TextBlock Text="Start Minimized to Tray" FontWeight="Medium"/>
                         <TextBlock Text="Do not open settings window at startup"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                     </StackPanel>
                 </ui:CardControl.Header>
                 <ui:ToggleSwitch x:Name="StartMinimizedToggle" Checked="StartMinimized_Changed" Unchecked="StartMinimized_Changed"/>
@@ -52,7 +52,7 @@
                     <StackPanel>
                         <TextBlock Text="Bypass Hotkey" FontWeight="Medium"/>
                         <TextBlock Text="Hold this key to temporarily pass raw scroll through"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                     </StackPanel>
                 </ui:CardControl.Header>
                 <ComboBox x:Name="BypassKeyCombo" Width="120" SelectionChanged="BypassKeyCombo_SelectionChanged">

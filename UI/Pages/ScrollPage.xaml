@@ -20,7 +20,7 @@
                     <ui:CardControl.Header>
                         <StackPanel>
                             <TextBlock Text="Step Size" FontWeight="Medium"/>
-                            <TextBlock Text="Pixels per wheel notch" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                            <TextBlock Text="Pixels per wheel notch" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                         </StackPanel>
                     </ui:CardControl.Header>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -35,7 +35,7 @@
                     <ui:CardControl.Header>
                         <StackPanel>
                             <TextBlock Text="Animation Time" FontWeight="Medium"/>
-                            <TextBlock Text="Duration of scroll animation" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                            <TextBlock Text="Duration of scroll animation" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                         </StackPanel>
                     </ui:CardControl.Header>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -50,7 +50,7 @@
                     <ui:CardControl.Header>
                         <StackPanel>
                             <TextBlock Text="Acceleration Delta" FontWeight="Medium"/>
-                            <TextBlock Text="Max inter-event time for acceleration to apply" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                            <TextBlock Text="Max inter-event time for acceleration to apply" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                         </StackPanel>
                     </ui:CardControl.Header>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -65,7 +65,7 @@
                     <ui:CardControl.Header>
                         <StackPanel>
                             <TextBlock Text="Acceleration Max" FontWeight="Medium"/>
-                            <TextBlock Text="Maximum acceleration multiplier" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                            <TextBlock Text="Maximum acceleration multiplier" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                         </StackPanel>
                     </ui:CardControl.Header>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -80,7 +80,7 @@
                     <ui:CardControl.Header>
                         <StackPanel>
                             <TextBlock Text="Tail-to-Head Ratio" FontWeight="Medium"/>
-                            <TextBlock Text="Easing end-to-start speed ratio" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                            <TextBlock Text="Easing end-to-start speed ratio" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                         </StackPanel>
                     </ui:CardControl.Header>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -97,7 +97,7 @@
                     <ui:CardControl.Header>
                         <StackPanel>
                             <TextBlock Text="Animation Easing" FontWeight="Medium"/>
-                            <TextBlock Text="Smoothly ease in and out of the scroll" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                            <TextBlock Text="Smoothly ease in and out of the scroll" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                         </StackPanel>
                     </ui:CardControl.Header>
                     <ui:ToggleSwitch x:Name="EasingToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>
@@ -107,7 +107,7 @@
                     <ui:CardControl.Header>
                         <StackPanel>
                             <TextBlock Text="Shift Key → Horizontal Scroll" FontWeight="Medium"/>
-                            <TextBlock Text="Convert vertical to horizontal scroll holding Shift" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                            <TextBlock Text="Convert vertical to horizontal scroll holding Shift" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                         </StackPanel>
                     </ui:CardControl.Header>
                     <ui:ToggleSwitch x:Name="ShiftHorizToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>
@@ -117,7 +117,7 @@
                     <ui:CardControl.Header>
                         <StackPanel>
                             <TextBlock Text="Horizontal Smoothness" FontWeight="Medium"/>
-                            <TextBlock Text="Apply smooth scrolling to horizontal scrolls" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                            <TextBlock Text="Apply smooth scrolling to horizontal scrolls" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                         </StackPanel>
                     </ui:CardControl.Header>
                     <ui:ToggleSwitch x:Name="HorizSmoothnessToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>
@@ -127,7 +127,7 @@
                     <ui:CardControl.Header>
                         <StackPanel>
                             <TextBlock Text="Reverse Wheel Direction" FontWeight="Medium"/>
-                            <TextBlock Text="Invert vertical and horizontal wheel directions" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                            <TextBlock Text="Invert vertical and horizontal wheel directions" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                         </StackPanel>
                     </ui:CardControl.Header>
                     <ui:ToggleSwitch x:Name="ReverseToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>
@@ -137,7 +137,7 @@
                     <ui:CardControl.Header>
                         <StackPanel>
                             <TextBlock Text="Click to Stop Animation" FontWeight="Medium"/>
-                            <TextBlock Text="Stop scrolling immediately when a mouse button is clicked" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                            <TextBlock Text="Stop scrolling immediately when a mouse button is clicked" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                         </StackPanel>
                     </ui:CardControl.Header>
                     <ui:ToggleSwitch x:Name="ClickStopToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>

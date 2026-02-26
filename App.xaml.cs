@@ -160,7 +160,6 @@ public partial class App : System.Windows.Application
 
         bool horizontal = e.Horizontal || (profile.ShiftKeyHorizontal && KeyboardHook.IsShiftDown);
         e.Suppress = true;
-        Logger.Log($"Wheel delta={e.Delta} horiz={horizontal}");
         Animator.OnWheel(e.Delta, horizontal, e.Timestamp);
     }
 

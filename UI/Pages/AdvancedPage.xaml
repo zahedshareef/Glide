@@ -17,7 +17,7 @@
                     <StackPanel>
                         <TextBlock Text="Disable for Touchpad" FontWeight="Medium"/>
                         <TextBlock Text="Skip smooth scrolling when a precision touchpad is detected"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                     </StackPanel>
                 </ui:CardControl.Header>
                 <ui:ToggleSwitch x:Name="TouchpadToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>
@@ -28,7 +28,7 @@
                     <StackPanel>
                         <TextBlock Text="Frame-Rate Adaptive Animation" FontWeight="Medium"/>
                         <TextBlock Text="Tie animation ticks to monitor refresh rate"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                     </StackPanel>
                 </ui:CardControl.Header>
                 <ui:ToggleSwitch x:Name="FrameRateToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>
@@ -39,7 +39,7 @@
                     <StackPanel>
                         <TextBlock Text="Scale Step Size with DPI" FontWeight="Medium"/>
                         <TextBlock Text="Automatically scale scroll distance on high-DPI displays"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                     </StackPanel>
                 </ui:CardControl.Header>
                 <ui:ToggleSwitch x:Name="DpiToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>
@@ -52,7 +52,7 @@
                 <ui:CardControl.Header>
                     <StackPanel>
                         <TextBlock Text="Speed Threshold for Smooth Scroll" FontWeight="Medium"/>
-                        <TextBlock Text="Fast flicks skip animation above threshold" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                        <TextBlock Text="Fast flicks skip animation above threshold" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                     </StackPanel>
                 </ui:CardControl.Header>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -69,7 +69,7 @@
                     <StackPanel>
                         <TextBlock Text="Diagnostics Mode" FontWeight="Medium"/>
                         <TextBlock Text="Log events to %AppData%\SmoothScroller\diagnostics.log"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
                     </StackPanel>
                 </ui:CardControl.Header>
                 <ui:ToggleSwitch x:Name="DiagToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>
