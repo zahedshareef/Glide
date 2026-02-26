@@ -122,7 +122,14 @@ public partial class App : System.Windows.Application
         try
         {
             bool minimized = e.Args.Contains("--minimized") || Settings.Current.StartMinimized;
-            if (!minimized) OpenSettings();
+            if (!minimized)
+            {
+                OpenSettings();
+            }
+            else
+            {
+                Tray.ShowToast("SmoothScroller", "SmoothScroller is running in the background.");
+            }
         }
         catch (Exception ex) { WriteCrash("Step 9 – OpenSettings", ex); return; }
 

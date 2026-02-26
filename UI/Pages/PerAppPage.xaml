@@ -4,6 +4,43 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Per-App">
 
+    <Page.Resources>
+        <!-- Style the GridView's header to blend into the dark modern theme -->
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="12,8,12,8"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorDefaultBrush}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridViewColumnHeader">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
+                            <TextBlock Text="{TemplateBinding Content}" 
+                                       Foreground="{TemplateBinding Foreground}"
+                                       FontWeight="{TemplateBinding FontWeight}"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Style standard ListViewItem just in case ui:ListView isn't enough -->
+        <Style TargetType="ListViewItem" BasedOn="{StaticResource {x:Type ui:ListViewItem}}">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="MinHeight" Value="40" />
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
+
     <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,16,24,24">
         <StackPanel MaxWidth="700" HorizontalAlignment="Left">
 
@@ -40,9 +77,9 @@
 
             <!-- App list -->
             <Border BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8" MinHeight="300">
-                <ListView x:Name="AppListView" BorderThickness="0" Background="Transparent"
+                <ui:ListView x:Name="AppListView" BorderThickness="0" Background="Transparent"
                           SelectionChanged="AppListView_SelectionChanged">
-                    <ListView.View>
+                    <ui:ListView.View>
                         <GridView>
                             <GridViewColumn Header="Application" Width="200" DisplayMemberBinding="{Binding AppName}"/>
                             <GridViewColumn Header="Type"        Width="100" DisplayMemberBinding="{Binding EntryType}"/>
@@ -56,8 +93,8 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                         </GridView>
-                    </ListView.View>
-                </ListView>
+                    </ui:ListView.View>
+                </ui:ListView>
             </Border>
 
         </StackPanel>
