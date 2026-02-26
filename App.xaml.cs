@@ -140,14 +140,14 @@ public partial class App : System.Windows.Application
     {
         _currentProcessName = processName;
         ApplyCurrentProfile();
-        Logger.Log($"Foreground: {processName}");
     }
 
     private void ApplyCurrentProfile()
     {
-        var profile = _profileResolver.Resolve(_currentProcessName);
-        if (profile != null)
-            Animator.ApplyProfile(profile, Settings.Current.ScaleWithDpi);
+        var result = _profileResolver.Resolve(_currentProcessName);
+        if (result.Profile != null)
+            Animator.ApplyProfile(result.Profile, Settings.Current.ScaleWithDpi);
+        Logger.Log($"Foreground: {_currentProcessName} ({result.Reason})");
     }
 
     private void OnWheel(object? sender, Core.Hooks.WheelEventArgs e)
@@ -155,7 +155,7 @@ public partial class App : System.Windows.Application
         if (KeyboardHook.IsBypassActive) { e.Suppress = false; return; }
         if (Settings.Current.DisableTouchpad && TouchpadDetector.HasTouchpad) { e.Suppress = false; return; }
 
-        var profile = _profileResolver.Resolve(_currentProcessName);
+        var profile = _profileResolver.Resolve(_currentProcessName).Profile;
         if (profile == null) { e.Suppress = false; return; }
 
         bool horizontal = e.Horizontal || (profile.ShiftKeyHorizontal && KeyboardHook.IsShiftDown);
@@ -166,7 +166,7 @@ public partial class App : System.Windows.Application
 
     private void OnAnyButtonDown(object? sender, EventArgs e)
     {
-        var profile = _profileResolver.Resolve(_currentProcessName);
+        var profile = _profileResolver.Resolve(_currentProcessName).Profile;
         if (profile?.ClickToStop == true)
             Animator.StopAnimation();
     }

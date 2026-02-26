@@ -15,13 +15,15 @@ public class AppListEntry
 
 public partial class PerAppPage : System.Windows.Controls.Page
 {
-    private readonly ObservableCollection<AppListEntry> _entries = new();
+    private readonly ObservableCollection<AppListEntry> _overrides = new();
+    private readonly ObservableCollection<AppListEntry> _filters = new();
     private bool _loading;
 
     public PerAppPage()
     {
         InitializeComponent();
-        AppListView.ItemsSource = _entries;
+        OverridesListView.ItemsSource = _overrides;
+        FilterListView.ItemsSource = _filters;
         Loaded += OnLoaded;
     }
 
@@ -32,15 +34,15 @@ public partial class PerAppPage : System.Windows.Controls.Page
         BlacklistRadio.IsChecked = s.FilterMode == FilterMode.Blacklist;
         WhitelistRadio.IsChecked = s.FilterMode == FilterMode.Whitelist;
 
-        _entries.Clear();
+        _filters.Clear();
         foreach (var app in s.FilterList)
-            _entries.Add(new AppListEntry { AppName = app, EntryType = "Filter" });
+            _filters.Add(new AppListEntry { AppName = app });
 
+        _overrides.Clear();
         foreach (var kv in s.AppOverrides)
-            _entries.Add(new AppListEntry
+            _overrides.Add(new AppListEntry
             {
                 AppName   = kv.Key,
-                EntryType = "Override",
                 StepSize  = kv.Value.StepSize?.ToString()      ?? "—",
                 AnimTime  = kv.Value.AnimationTime?.ToString() ?? "—",
             });
@@ -54,47 +56,87 @@ public partial class PerAppPage : System.Windows.Controls.Page
             s.FilterMode = BlacklistRadio.IsChecked == true ? FilterMode.Blacklist : FilterMode.Whitelist);
     }
 
-    private void AddToList_Click(object sender, RoutedEventArgs e)
+    private void AddFilter_Click(object sender, RoutedEventArgs e)
     {
-        var name = AppNameBox.Text.Trim().ToLowerInvariant().Replace(".exe", "");
+        var name = FilterAppBox.Text.Trim().ToLowerInvariant().Replace(".exe", "");
         if (string.IsNullOrWhiteSpace(name)) return;
         App.Settings.Update(s =>
         {
             if (!s.FilterList.Contains(name, StringComparer.OrdinalIgnoreCase))
                 s.FilterList.Add(name);
         });
-        if (!_entries.Any(x => x.AppName == name))
-            _entries.Add(new AppListEntry { AppName = name, EntryType = "Filter" });
-        AppNameBox.Text = "";
+        if (!_filters.Any(x => x.AppName == name))
+            _filters.Add(new AppListEntry { AppName = name });
+        FilterAppBox.Text = "";
     }
 
     private void AddOverride_Click(object sender, RoutedEventArgs e)
     {
-        var name = AppNameBox.Text.Trim().ToLowerInvariant().Replace(".exe", "");
+        var name = OverrideAppBox.Text.Trim().ToLowerInvariant().Replace(".exe", "");
         if (string.IsNullOrWhiteSpace(name)) return;
+
+        int? step = int.TryParse(OverrideStepBox.Text.Trim(), out var s) ? s : null;
+        int? anim = int.TryParse(OverrideAnimBox.Text.Trim(), out var a) ? a : null;
+
         App.Settings.Update(s =>
         {
-            if (!s.AppOverrides.ContainsKey(name))
-                s.AppOverrides[name] = new ScrollProfile();
+            if (!s.AppOverrides.TryGetValue(name, out var profile))
+            {
+                profile = new ScrollProfile();
+                s.AppOverrides[name] = profile;
+            }
+            if (step.HasValue) profile.StepSize = step;
+            if (anim.HasValue) profile.AnimationTime = anim;
         });
-        if (!_entries.Any(x => x.AppName == name && x.EntryType == "Override"))
-            _entries.Add(new AppListEntry { AppName = name, EntryType = "Override" });
-        AppNameBox.Text = "";
+
+        // Update list
+        var existing = _overrides.FirstOrDefault(x => x.AppName == name);
+        if (existing != null)
+        {
+            existing.StepSize = step?.ToString() ?? existing.StepSize;
+            existing.AnimTime = anim?.ToString() ?? existing.AnimTime;
+            // Force refresh visually if needed, but simplified here by replacing:
+            _overrides.Remove(existing);
+            _overrides.Add(existing);
+        }
+        else
+        {
+            _overrides.Add(new AppListEntry
+            {
+                AppName = name,
+                StepSize = step?.ToString() ?? "—",
+                AnimTime = anim?.ToString() ?? "—"
+            });
+        }
+        
+        OverrideAppBox.Text = "";
+        OverrideStepBox.Text = "";
+        OverrideAnimBox.Text = "";
     }
 
-    private void RemoveApp_Click(object sender, RoutedEventArgs e)
+    private void RemoveFilter_Click(object sender, RoutedEventArgs e)
     {
         if (sender is System.Windows.Controls.Button btn && btn.Tag is string name)
         {
             App.Settings.Update(s =>
             {
                 s.FilterList.RemoveAll(x => x.Equals(name, StringComparison.OrdinalIgnoreCase));
-                s.AppOverrides.Remove(name);
             });
-            var entry = _entries.FirstOrDefault(x => x.AppName == name);
-            if (entry != null) _entries.Remove(entry);
+            var entry = _filters.FirstOrDefault(x => x.AppName == name);
+            if (entry != null) _filters.Remove(entry);
         }
     }
 
-    private void AppListView_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
+    private void RemoveOverride_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is System.Windows.Controls.Button btn && btn.Tag is string name)
+        {
+            App.Settings.Update(s =>
+            {
+                s.AppOverrides.Remove(name);
+            });
+            var entry = _overrides.FirstOrDefault(x => x.AppName == name);
+            if (entry != null) _overrides.Remove(entry);
+        }
+    }
 }

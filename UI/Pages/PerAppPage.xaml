@@ -46,12 +46,52 @@
 
             <TextBlock Text="Per-App Profiles" FontSize="28" FontWeight="SemiBold" Margin="0,0,0,24"/>
 
+            <TextBlock Text="Scroll Overrides" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,4"/>
+            <TextBlock Text="Override scroll behavior for specific applications." Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,12"/>
+
+            <!-- Add Override row -->
+            <Grid Margin="0,0,0,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ui:TextBox Grid.Column="0" x:Name="OverrideAppBox" PlaceholderText="App name (e.g. devenv)" Margin="0,0,8,0"/>
+                <ui:TextBox Grid.Column="1" x:Name="OverrideStepBox" PlaceholderText="Step" Margin="0,0,8,0"/>
+                <ui:TextBox Grid.Column="2" x:Name="OverrideAnimBox" PlaceholderText="Anim" Margin="0,0,8,0"/>
+                <ui:Button Grid.Column="3" Content="Add Override" Click="AddOverride_Click" Icon="{ui:SymbolIcon Add24}" Appearance="Primary" Width="140"/>
+            </Grid>
+
+            <!-- Overrides list -->
+            <Border BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8" MinHeight="150" Margin="0,0,0,32">
+                <ui:ListView x:Name="OverridesListView" BorderThickness="0" Background="Transparent">
+                    <ui:ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Application" Width="200" DisplayMemberBinding="{Binding AppName}"/>
+                            <GridViewColumn Header="Step (px)"   Width="100" DisplayMemberBinding="{Binding StepSize}"/>
+                            <GridViewColumn Header="Anim (ms)"   Width="100" DisplayMemberBinding="{Binding AnimTime}"/>
+                            <GridViewColumn Header=""            Width="60">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="✕" Click="RemoveOverride_Click" Tag="{Binding AppName}" Padding="6,2"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ui:ListView.View>
+                </ui:ListView>
+            </Border>
+
+            <TextBlock Text="App Filtering" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,4"/>
+            <TextBlock Text="Exclude apps from smooth scrolling entirely, or restrict smooth scrolling to only a few apps." Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,12"/>
+
             <!-- Filter mode -->
             <ui:CardControl Margin="0,0,0,12">
                 <ui:CardControl.Header>
                     <StackPanel>
                         <TextBlock Text="Filter Mode" FontWeight="Medium"/>
-                        <TextBlock Text="Choose how the app list is interpreted"
+                        <TextBlock Text="Choose how the app list below is interpreted"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
                     </StackPanel>
                 </ui:CardControl.Header>
@@ -61,34 +101,26 @@
                 </StackPanel>
             </ui:CardControl>
 
-            <!-- Add app row -->
+            <!-- Add filter row -->
             <Grid Margin="0,0,0,12">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <ui:TextBox Grid.Column="0" x:Name="AppNameBox"
-                            PlaceholderText="e.g. notepad, chrome, devenv"
-                            Margin="0,0,8,0"/>
-                <ui:Button Grid.Column="1" Content="Add to Filter List" Click="AddToList_Click" Margin="0,0,8,0"/>
-                <ui:Button Grid.Column="2" Content="Add Override"        Click="AddOverride_Click"/>
+                <ui:TextBox Grid.Column="0" x:Name="FilterAppBox" PlaceholderText="App name (e.g. cmd)" Margin="0,0,8,0"/>
+                <ui:Button Grid.Column="1" Content="Add to List" Click="AddFilter_Click" Icon="{ui:SymbolIcon Add24}" Appearance="Secondary" Width="140"/>
             </Grid>
 
-            <!-- App list -->
-            <Border BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8" MinHeight="300">
-                <ui:ListView x:Name="AppListView" BorderThickness="0" Background="Transparent"
-                          SelectionChanged="AppListView_SelectionChanged">
+            <!-- Filter list -->
+            <Border BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8" MinHeight="150">
+                <ui:ListView x:Name="FilterListView" BorderThickness="0" Background="Transparent">
                     <ui:ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Application" Width="200" DisplayMemberBinding="{Binding AppName}"/>
-                            <GridViewColumn Header="Type"        Width="100" DisplayMemberBinding="{Binding EntryType}"/>
-                            <GridViewColumn Header="Step (px)"   Width="80"  DisplayMemberBinding="{Binding StepSize}"/>
-                            <GridViewColumn Header="Anim (ms)"   Width="80"  DisplayMemberBinding="{Binding AnimTime}"/>
+                            <GridViewColumn Header="Application" Width="400" DisplayMemberBinding="{Binding AppName}"/>
                             <GridViewColumn Header=""            Width="60">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Content="✕" Click="RemoveApp_Click" Tag="{Binding AppName}" Padding="6,2"/>
+                                        <Button Content="✕" Click="RemoveFilter_Click" Tag="{Binding AppName}" Padding="6,2"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

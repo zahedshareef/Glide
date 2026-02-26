@@ -18,11 +18,12 @@ public class ProfileResolver
     /// <summary>
     /// Returns the resolved profile for <paramref name="processName"/>.
     /// Returns null if smooth scrolling should be bypassed for this app.
+    /// Also returns a reason string for diagnostics.
     /// </summary>
-    public ResolvedProfile? Resolve(string processName)
+    public (ResolvedProfile? Profile, string Reason) Resolve(string processName)
     {
         var settings = _settingsManager.Current;
-        if (!settings.IsEnabled) return null;
+        if (!settings.IsEnabled) return (null, "disabled globally");
 
         var key = processName.ToLowerInvariant();
 
@@ -30,15 +31,15 @@ public class ProfileResolver
         bool inList = settings.FilterList.Any(e => e.Equals(key, StringComparison.OrdinalIgnoreCase));
 
         if (settings.FilterMode == FilterMode.Blacklist && inList)
-            return null; // Blacklisted — pass raw scroll through
+            return (null, "blacklisted"); // Blacklisted — pass raw scroll through
 
         if (settings.FilterMode == FilterMode.Whitelist && !inList)
-            return null; // Not whitelisted — pass raw scroll through
+            return (null, "not whitelisted"); // Not whitelisted — pass raw scroll through
 
         // ── Profile resolution ────────────────────────────────────────────────
         if (settings.AppOverrides.TryGetValue(key, out var appProfile))
-            return appProfile.Resolve(settings.GlobalProfile);
+            return (appProfile.Resolve(settings.GlobalProfile), "overridden");
 
-        return settings.GlobalProfile.Resolve(settings.GlobalProfile);
+        return (settings.GlobalProfile.Resolve(settings.GlobalProfile), "global profile");
     }
 }
