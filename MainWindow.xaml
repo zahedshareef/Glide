@@ -26,7 +26,7 @@
         <!-- Navigation shell -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="180"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -35,6 +35,7 @@
                 x:Name="NavView"
                 PaneDisplayMode="Left"
                 IsPaneOpen="True"
+                IsBackButtonVisible="Collapsed"
                 OpenPaneLength="180"
                 Loaded="NavView_Loaded">
 

@@ -4,11 +4,11 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="General">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,16">
-        <StackPanel MaxWidth="600" HorizontalAlignment="Left">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,16,24,24">
+        <StackPanel MaxWidth="700" HorizontalAlignment="Left">
 
             <!-- Header -->
-            <TextBlock Text="General" FontSize="24" FontWeight="SemiBold" Margin="0,0,0,20"/>
+            <TextBlock Text="General" FontSize="28" FontWeight="SemiBold" Margin="0,0,0,24"/>
 
             <!-- Enable/Disable -->
             <ui:CardControl Margin="0,0,0,12">

@@ -4,66 +4,62 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Per-App">
 
-    <Grid Margin="24,16">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,16,24,24">
+        <StackPanel MaxWidth="700" HorizontalAlignment="Left">
 
-        <TextBlock Grid.Row="0" Text="Per-App Profiles" FontSize="24" FontWeight="SemiBold" Margin="0,0,0,16"/>
+            <TextBlock Text="Per-App Profiles" FontSize="28" FontWeight="SemiBold" Margin="0,0,0,24"/>
 
-        <!-- Filter mode -->
-        <ui:CardControl Grid.Row="1" Margin="0,0,0,12">
-            <ui:CardControl.Header>
-                <StackPanel>
-                    <TextBlock Text="Filter Mode" FontWeight="Medium"/>
-                    <TextBlock Text="Choose how the app list is interpreted"
-                               Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+            <!-- Filter mode -->
+            <ui:CardControl Margin="0,0,0,12">
+                <ui:CardControl.Header>
+                    <StackPanel>
+                        <TextBlock Text="Filter Mode" FontWeight="Medium"/>
+                        <TextBlock Text="Choose how the app list is interpreted"
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                    </StackPanel>
+                </ui:CardControl.Header>
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton x:Name="BlacklistRadio" Content="Blacklist" GroupName="FilterMode" Margin="0,0,16,0" Checked="FilterMode_Changed"/>
+                    <RadioButton x:Name="WhitelistRadio" Content="Whitelist" GroupName="FilterMode" Checked="FilterMode_Changed"/>
                 </StackPanel>
-            </ui:CardControl.Header>
-            <StackPanel Orientation="Horizontal">
-                <RadioButton x:Name="BlacklistRadio" Content="Blacklist" GroupName="FilterMode" Margin="0,0,16,0" Checked="FilterMode_Changed"/>
-                <RadioButton x:Name="WhitelistRadio" Content="Whitelist" GroupName="FilterMode" Checked="FilterMode_Changed"/>
-            </StackPanel>
-        </ui:CardControl>
+            </ui:CardControl>
 
-        <!-- Add app row -->
-        <Grid Grid.Row="2" Margin="0,0,0,12">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <ui:TextBox Grid.Column="0" x:Name="AppNameBox"
-                        PlaceholderText="e.g. notepad, chrome, devenv"
-                        Margin="0,0,8,0"/>
-            <ui:Button Grid.Column="1" Content="Add to Filter List" Click="AddToList_Click" Margin="0,0,8,0"/>
-            <ui:Button Grid.Column="2" Content="Add Override"        Click="AddOverride_Click"/>
-        </Grid>
+            <!-- Add app row -->
+            <Grid Margin="0,0,0,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ui:TextBox Grid.Column="0" x:Name="AppNameBox"
+                            PlaceholderText="e.g. notepad, chrome, devenv"
+                            Margin="0,0,8,0"/>
+                <ui:Button Grid.Column="1" Content="Add to Filter List" Click="AddToList_Click" Margin="0,0,8,0"/>
+                <ui:Button Grid.Column="2" Content="Add Override"        Click="AddOverride_Click"/>
+            </Grid>
 
-        <!-- App list -->
-        <Border Grid.Row="3" BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
-            <ListView x:Name="AppListView" BorderThickness="0" Background="Transparent"
-                      SelectionChanged="AppListView_SelectionChanged">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Application" Width="200" DisplayMemberBinding="{Binding AppName}"/>
-                        <GridViewColumn Header="Type"        Width="100" DisplayMemberBinding="{Binding EntryType}"/>
-                        <GridViewColumn Header="Step (px)"   Width="80"  DisplayMemberBinding="{Binding StepSize}"/>
-                        <GridViewColumn Header="Anim (ms)"   Width="80"  DisplayMemberBinding="{Binding AnimTime}"/>
-                        <GridViewColumn Header=""            Width="60">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Content="✕" Click="RemoveApp_Click" Tag="{Binding AppName}" Padding="6,2"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </Border>
+            <!-- App list -->
+            <Border BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8" MinHeight="300">
+                <ListView x:Name="AppListView" BorderThickness="0" Background="Transparent"
+                          SelectionChanged="AppListView_SelectionChanged">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Application" Width="200" DisplayMemberBinding="{Binding AppName}"/>
+                            <GridViewColumn Header="Type"        Width="100" DisplayMemberBinding="{Binding EntryType}"/>
+                            <GridViewColumn Header="Step (px)"   Width="80"  DisplayMemberBinding="{Binding StepSize}"/>
+                            <GridViewColumn Header="Anim (ms)"   Width="80"  DisplayMemberBinding="{Binding AnimTime}"/>
+                            <GridViewColumn Header=""            Width="60">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="✕" Click="RemoveApp_Click" Tag="{Binding AppName}" Padding="6,2"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Border>
 
-    </Grid>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

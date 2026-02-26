@@ -4,10 +4,10 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Advanced">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,16">
-        <StackPanel MaxWidth="600" HorizontalAlignment="Left">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,16,24,24">
+        <StackPanel MaxWidth="700" HorizontalAlignment="Left">
 
-            <TextBlock Text="Advanced" FontSize="24" FontWeight="SemiBold" Margin="0,0,0,20"/>
+            <TextBlock Text="Advanced" FontSize="28" FontWeight="SemiBold" Margin="0,0,0,24"/>
 
             <!-- Input section -->
             <TextBlock Text="Input" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
@@ -48,19 +48,18 @@
             <!-- Speed threshold -->
             <TextBlock Text="Behavior" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
 
-            <ui:CardExpander Margin="0,0,0,16" Header="Speed Threshold for Smooth Scroll">
-                <StackPanel Margin="8,4">
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
-                        <TextBlock Text="Fast flicks skip animation above threshold  "
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
-                        <TextBlock x:Name="SpeedThresholdLabel" Text="0 (always smooth)" FontSize="12" FontWeight="SemiBold"/>
+            <ui:CardControl Margin="0,0,0,16">
+                <ui:CardControl.Header>
+                    <StackPanel>
+                        <TextBlock Text="Speed Threshold for Smooth Scroll" FontWeight="Medium"/>
+                        <TextBlock Text="Fast flicks skip animation above threshold" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
                     </StackPanel>
-                    <TextBlock Text="Set to 0 to always smooth. Higher values let fast flicks scroll natively."
-                               Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="11"
-                               Margin="0,0,0,8" TextWrapping="Wrap"/>
-                    <Slider x:Name="SpeedThresholdSlider" Minimum="0" Maximum="50" ValueChanged="SpeedThreshold_Changed"/>
+                </ui:CardControl.Header>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock x:Name="SpeedThresholdLabel" Text="0 (always smooth)" FontSize="12" FontWeight="SemiBold" Width="120" VerticalAlignment="Center" TextAlignment="Right" Margin="0,0,12,0"/>
+                    <Slider x:Name="SpeedThresholdSlider" Minimum="0" Maximum="50" Width="150" VerticalAlignment="Center" ValueChanged="SpeedThreshold_Changed"/>
                 </StackPanel>
-            </ui:CardExpander>
+            </ui:CardControl>
 
             <!-- Diagnostics -->
             <TextBlock Text="Diagnostics" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
