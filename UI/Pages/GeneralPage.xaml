@@ -1,0 +1,75 @@
+<Page x:Class="SmoothScroller.UI.Pages.GeneralPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="General">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,16">
+        <StackPanel MaxWidth="600" HorizontalAlignment="Left">
+
+            <!-- Header -->
+            <TextBlock Text="General" FontSize="24" FontWeight="SemiBold" Margin="0,0,0,20"/>
+
+            <!-- Enable/Disable -->
+            <ui:CardControl Margin="0,0,0,12">
+                <ui:CardControl.Header>
+                    <StackPanel>
+                        <TextBlock Text="Enable SmoothScroller" FontWeight="Medium"/>
+                        <TextBlock Text="Apply smooth scrolling to all compatible applications"
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                    </StackPanel>
+                </ui:CardControl.Header>
+                <ui:ToggleSwitch x:Name="EnableToggle" Checked="EnableToggle_Changed" Unchecked="EnableToggle_Changed"/>
+            </ui:CardControl>
+
+            <!-- Auto-start -->
+            <ui:CardControl Margin="0,0,0,12">
+                <ui:CardControl.Header>
+                    <StackPanel>
+                        <TextBlock Text="Start with Windows" FontWeight="Medium"/>
+                        <TextBlock Text="Launch SmoothScroller automatically on login"
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                    </StackPanel>
+                </ui:CardControl.Header>
+                <ui:ToggleSwitch x:Name="AutoStartToggle" Checked="AutoStartToggle_Changed" Unchecked="AutoStartToggle_Changed"/>
+            </ui:CardControl>
+
+            <!-- Start minimized -->
+            <ui:CardControl Margin="0,0,0,12">
+                <ui:CardControl.Header>
+                    <StackPanel>
+                        <TextBlock Text="Start Minimized to Tray" FontWeight="Medium"/>
+                        <TextBlock Text="Do not open settings window at startup"
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                    </StackPanel>
+                </ui:CardControl.Header>
+                <ui:ToggleSwitch x:Name="StartMinimizedToggle" Checked="StartMinimized_Changed" Unchecked="StartMinimized_Changed"/>
+            </ui:CardControl>
+
+            <!-- Bypass hotkey -->
+            <ui:CardControl Margin="0,0,0,24">
+                <ui:CardControl.Header>
+                    <StackPanel>
+                        <TextBlock Text="Bypass Hotkey" FontWeight="Medium"/>
+                        <TextBlock Text="Hold this key to temporarily pass raw scroll through"
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                    </StackPanel>
+                </ui:CardControl.Header>
+                <ComboBox x:Name="BypassKeyCombo" Width="120" SelectionChanged="BypassKeyCombo_SelectionChanged">
+                    <ComboBoxItem Tag="0"    Content="Disabled"/>
+                    <ComboBoxItem Tag="18"   Content="Alt"/>
+                    <ComboBoxItem Tag="17"   Content="Ctrl"/>
+                    <ComboBoxItem Tag="160"  Content="Left Shift"/>
+                </ComboBox>
+            </ui:CardControl>
+
+            <!-- Import/Export -->
+            <TextBlock Text="Settings" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+            <StackPanel Orientation="Horizontal">
+                <ui:Button Content="Export JSON" Margin="0,0,8,0" Click="Export_Click"/>
+                <ui:Button Content="Import JSON" Click="Import_Click"/>
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

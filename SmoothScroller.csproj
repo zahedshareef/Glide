@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <!-- Enable WinForms for Application.Run() on hook threads (message pump) -->
+    <UseWindowsForms>true</UseWindowsForms>
+    <!-- DPI awareness: per-monitor v2 -->
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <RootNamespace>SmoothScroller</RootNamespace>
+    <AssemblyName>SmoothScroller</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
+    <!-- Microsoft.Win32.Registry is included in the desktop framework; no explicit ref needed -->
+    <PackageReference Include="WPF-UI" Version="3.*" />
+  </ItemGroup>
+
+</Project>
