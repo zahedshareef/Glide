@@ -2,6 +2,9 @@ using SmoothScroller.Settings.Models;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using CheckBox = System.Windows.Controls.CheckBox;
+using Slider = System.Windows.Controls.Slider;
+using TextBlock = System.Windows.Controls.TextBlock;
 
 namespace SmoothScroller.UI.Pages;
 
@@ -75,43 +78,20 @@ public partial class PerAppPage : System.Windows.Controls.Page
         var name = OverrideAppBox.Text.Trim().ToLowerInvariant().Replace(".exe", "");
         if (string.IsNullOrWhiteSpace(name)) return;
 
-        int? step = int.TryParse(OverrideStepBox.Text.Trim(), out var s) ? s : null;
-        int? anim = int.TryParse(OverrideAnimBox.Text.Trim(), out var a) ? a : null;
-
         App.Settings.Update(s =>
         {
-            if (!s.AppOverrides.TryGetValue(name, out var profile))
+            if (!s.AppOverrides.ContainsKey(name))
             {
-                profile = new ScrollProfile();
-                s.AppOverrides[name] = profile;
+                s.AppOverrides[name] = new ScrollProfile();
             }
-            if (step.HasValue) profile.StepSize = step;
-            if (anim.HasValue) profile.AnimationTime = anim;
         });
 
-        // Update list
-        var existing = _overrides.FirstOrDefault(x => x.AppName == name);
-        if (existing != null)
+        if (!_overrides.Any(x => x.AppName == name))
         {
-            existing.StepSize = step?.ToString() ?? existing.StepSize;
-            existing.AnimTime = anim?.ToString() ?? existing.AnimTime;
-            // Force refresh visually if needed, but simplified here by replacing:
-            _overrides.Remove(existing);
-            _overrides.Add(existing);
-        }
-        else
-        {
-            _overrides.Add(new AppListEntry
-            {
-                AppName = name,
-                StepSize = step?.ToString() ?? "—",
-                AnimTime = anim?.ToString() ?? "—"
-            });
+            _overrides.Add(new AppListEntry { AppName = name });
         }
         
         OverrideAppBox.Text = "";
-        OverrideStepBox.Text = "";
-        OverrideAnimBox.Text = "";
     }
 
     private void RemoveFilter_Click(object sender, RoutedEventArgs e)
@@ -137,6 +117,106 @@ public partial class PerAppPage : System.Windows.Controls.Page
             });
             var entry = _overrides.FirstOrDefault(x => x.AppName == name);
             if (entry != null) _overrides.Remove(entry);
+
+            if (OverridesListView.SelectedItem is AppListEntry selected && selected.AppName == name)
+            {
+                OverrideDetailPanel.Visibility = Visibility.Collapsed;
+            }
         }
+    }
+
+    private string _currentDetailApp = "";
+    private bool _updatingDetails = false;
+
+    private void OverridesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (OverridesListView.SelectedItem is AppListEntry entry)
+        {
+            _currentDetailApp = entry.AppName;
+            OverrideDetailHeader.Text = $"Settings for {entry.AppName}";
+            OverrideDetailPanel.Visibility = Visibility.Visible;
+            PopulateDetailPanel();
+        }
+        else
+        {
+            OverrideDetailPanel.Visibility = Visibility.Collapsed;
+            _currentDetailApp = "";
+        }
+    }
+
+    private void PopulateDetailPanel()
+    {
+        if (string.IsNullOrEmpty(_currentDetailApp)) return;
+        if (!App.Settings.Current.AppOverrides.TryGetValue(_currentDetailApp, out var profile)) return;
+
+        _updatingDetails = true;
+
+        var g = App.Settings.Current.GlobalProfile;
+
+        void LoadInt(CheckBox chk, Slider sld, TextBlock lbl, int? val, int globalVal, string suffix)
+        {
+            chk.IsChecked = val == null;
+            sld.IsEnabled = val != null;
+            sld.Value = val ?? globalVal;
+            lbl.Text = $"{(val ?? globalVal)} {suffix}";
+        }
+
+        void LoadDbl(CheckBox chk, Slider sld, TextBlock lbl, double? val, double globalVal, string suffix)
+        {
+            chk.IsChecked = val == null;
+            sld.IsEnabled = val != null;
+            sld.Value = val ?? globalVal;
+            lbl.Text = $"{(val ?? globalVal):0.0}{suffix}";
+        }
+
+        void LoadBool(CheckBox chk, Wpf.Ui.Controls.ToggleSwitch tgl, bool? val, bool globalVal)
+        {
+            chk.IsChecked = val == null;
+            tgl.IsEnabled = val != null;
+            tgl.IsChecked = val ?? globalVal;
+        }
+
+        LoadInt(ChkInheritStep, SldStep, LblStep, profile.StepSize, g.StepSize ?? 120, "px");
+        LoadInt(ChkInheritAnim, SldAnim, LblAnim, profile.AnimationTime, g.AnimationTime ?? 360, "ms");
+        LoadInt(ChkInheritAccelDelta, SldAccelDelta, LblAccelDelta, profile.AccelerationDelta, g.AccelerationDelta ?? 70, "ms");
+        LoadDbl(ChkInheritAccelMax, SldAccelMax, LblAccelMax, profile.AccelerationMax, g.AccelerationMax ?? 7.0, "x");
+        LoadDbl(ChkInheritTail, SldTail, LblTail, profile.TailToHeadRatio, g.TailToHeadRatio ?? 3.0, "x");
+
+        LoadBool(ChkInheritEasing, TglEasing, profile.AnimationEasing, g.AnimationEasing ?? true);
+        LoadBool(ChkInheritShift, TglShift, profile.ShiftKeyHorizontal, g.ShiftKeyHorizontal ?? true);
+        LoadBool(ChkInheritHoriz, TglHoriz, profile.HorizontalSmoothness, g.HorizontalSmoothness ?? true);
+        LoadBool(ChkInheritReverse, TglReverse, profile.ReverseDirection, g.ReverseDirection ?? false);
+        LoadBool(ChkInheritClickStop, TglClickStop, profile.ClickToStop, g.ClickToStop ?? true);
+
+        _updatingDetails = false;
+    }
+
+    private void Detail_Changed(object sender, RoutedEventArgs e)
+    {
+        if (_updatingDetails || string.IsNullOrEmpty(_currentDetailApp)) return;
+
+        App.Settings.Update(s =>
+        {
+            if (!s.AppOverrides.TryGetValue(_currentDetailApp, out var profile)) return;
+
+            int? GetInt(CheckBox chk, Slider sld) => chk.IsChecked == true ? null : (int)sld.Value;
+            double? GetDbl(CheckBox chk, Slider sld) => chk.IsChecked == true ? null : sld.Value;
+            bool? GetBool(CheckBox chk, Wpf.Ui.Controls.ToggleSwitch tgl) => chk.IsChecked == true ? null : tgl.IsChecked == true;
+
+            profile.StepSize = GetInt(ChkInheritStep, SldStep);
+            profile.AnimationTime = GetInt(ChkInheritAnim, SldAnim);
+            profile.AccelerationDelta = GetInt(ChkInheritAccelDelta, SldAccelDelta);
+            profile.AccelerationMax = GetDbl(ChkInheritAccelMax, SldAccelMax);
+            profile.TailToHeadRatio = GetDbl(ChkInheritTail, SldTail);
+
+            profile.AnimationEasing = GetBool(ChkInheritEasing, TglEasing);
+            profile.ShiftKeyHorizontal = GetBool(ChkInheritShift, TglShift);
+            profile.HorizontalSmoothness = GetBool(ChkInheritHoriz, TglHoriz);
+            profile.ReverseDirection = GetBool(ChkInheritReverse, TglReverse);
+            profile.ClickToStop = GetBool(ChkInheritClickStop, TglClickStop);
+        });
+
+        // Re-read to format labels accurately while sliding
+        PopulateDetailPanel();
     }
 }
