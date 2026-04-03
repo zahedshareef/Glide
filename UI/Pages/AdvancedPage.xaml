@@ -4,10 +4,10 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Advanced">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,16,24,24">
-        <StackPanel MaxWidth="700" HorizontalAlignment="Left">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,16">
+        <StackPanel MaxWidth="600" HorizontalAlignment="Left">
 
-            <TextBlock Text="Advanced" FontSize="28" FontWeight="SemiBold" Margin="0,0,0,24"/>
+            <TextBlock Text="Advanced" FontSize="24" FontWeight="SemiBold" Margin="0,0,0,20"/>
 
             <!-- Input section -->
             <TextBlock Text="Input" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
@@ -17,7 +17,7 @@
                     <StackPanel>
                         <TextBlock Text="Disable for Touchpad" FontWeight="Medium"/>
                         <TextBlock Text="Skip smooth scrolling when a precision touchpad is detected"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
                     </StackPanel>
                 </ui:CardControl.Header>
                 <ui:ToggleSwitch x:Name="TouchpadToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>
@@ -28,7 +28,7 @@
                     <StackPanel>
                         <TextBlock Text="Frame-Rate Adaptive Animation" FontWeight="Medium"/>
                         <TextBlock Text="Tie animation ticks to monitor refresh rate"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
                     </StackPanel>
                 </ui:CardControl.Header>
                 <ui:ToggleSwitch x:Name="FrameRateToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>
@@ -39,7 +39,7 @@
                     <StackPanel>
                         <TextBlock Text="Scale Step Size with DPI" FontWeight="Medium"/>
                         <TextBlock Text="Automatically scale scroll distance on high-DPI displays"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
                     </StackPanel>
                 </ui:CardControl.Header>
                 <ui:ToggleSwitch x:Name="DpiToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>
@@ -48,18 +48,19 @@
             <!-- Speed threshold -->
             <TextBlock Text="Behavior" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
 
-            <ui:CardControl Margin="0,0,0,16">
-                <ui:CardControl.Header>
-                    <StackPanel>
-                        <TextBlock Text="Speed Threshold for Smooth Scroll" FontWeight="Medium"/>
-                        <TextBlock Text="Fast flicks skip animation above threshold" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
+            <ui:CardExpander Margin="0,0,0,16" Header="Speed Threshold for Smooth Scroll">
+                <StackPanel Margin="8,4">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                        <TextBlock Text="Fast flicks skip animation above threshold  "
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                        <TextBlock x:Name="SpeedThresholdLabel" Text="0 (always smooth)" FontSize="12" FontWeight="SemiBold"/>
                     </StackPanel>
-                </ui:CardControl.Header>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock x:Name="SpeedThresholdLabel" Text="0 (always smooth)" FontSize="12" FontWeight="SemiBold" Width="120" VerticalAlignment="Center" TextAlignment="Right" Margin="0,0,12,0"/>
-                    <Slider x:Name="SpeedThresholdSlider" Minimum="0" Maximum="50" Width="150" VerticalAlignment="Center" ValueChanged="SpeedThreshold_Changed"/>
+                    <TextBlock Text="Set to 0 to always smooth. Higher values let fast flicks scroll natively."
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="11"
+                               Margin="0,0,0,8" TextWrapping="Wrap"/>
+                    <Slider x:Name="SpeedThresholdSlider" Minimum="0" Maximum="50" ValueChanged="SpeedThreshold_Changed"/>
                 </StackPanel>
-            </ui:CardControl>
+            </ui:CardExpander>
 
             <!-- Diagnostics -->
             <TextBlock Text="Diagnostics" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
@@ -69,7 +70,7 @@
                     <StackPanel>
                         <TextBlock Text="Diagnostics Mode" FontWeight="Medium"/>
                         <TextBlock Text="Log events to %AppData%\SmoothScroller\diagnostics.log"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
                     </StackPanel>
                 </ui:CardControl.Header>
                 <ui:ToggleSwitch x:Name="DiagToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>

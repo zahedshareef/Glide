@@ -11,134 +11,104 @@
         </Grid.ColumnDefinitions>
 
         <!-- Left: Settings -->
-        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" Padding="24,16,24,24">
-            <StackPanel MaxWidth="700" HorizontalAlignment="Left">
-                <TextBlock Text="Scrolling" FontSize="28" FontWeight="SemiBold" Margin="0,0,0,24"/>
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" Padding="24,16,16,16">
+            <StackPanel MaxWidth="560">
+                <TextBlock Text="Scroll Settings" FontSize="24" FontWeight="SemiBold" Margin="0,0,0,20"/>
 
                 <!-- Step Size -->
-                <ui:CardControl Margin="0,0,0,8">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Step Size" FontWeight="Medium"/>
-                            <TextBlock Text="Pixels per wheel notch" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
+                <ui:CardExpander Margin="0,0,0,8" IsExpanded="True" Header="Step Size">
+                    <StackPanel Margin="8,4">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                            <TextBlock Text="Pixels per wheel notch  " Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                            <TextBlock x:Name="StepSizeLabel" Text="120 px" FontSize="12" FontWeight="SemiBold"/>
                         </StackPanel>
-                    </ui:CardControl.Header>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <TextBlock x:Name="StepSizeLabel" Text="120 px" FontSize="12" FontWeight="SemiBold" Width="50" VerticalAlignment="Center" TextAlignment="Right" Margin="0,0,12,0"/>
-                        <Slider x:Name="StepSizeSlider" Minimum="20" Maximum="500" TickFrequency="10" Width="150" VerticalAlignment="Center"
+                        <Slider x:Name="StepSizeSlider" Minimum="20" Maximum="500" TickFrequency="10"
                                 ValueChanged="StepSize_Changed"/>
                     </StackPanel>
-                </ui:CardControl>
+                </ui:CardExpander>
 
                 <!-- Animation Time -->
-                <ui:CardControl Margin="0,0,0,8">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Animation Time" FontWeight="Medium"/>
-                            <TextBlock Text="Duration of scroll animation" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
+                <ui:CardExpander Margin="0,0,0,8" IsExpanded="True" Header="Animation Time">
+                    <StackPanel Margin="8,4">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                            <TextBlock Text="Duration of scroll animation  " Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                            <TextBlock x:Name="AnimTimeLabel" Text="360 ms" FontSize="12" FontWeight="SemiBold"/>
                         </StackPanel>
-                    </ui:CardControl.Header>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <TextBlock x:Name="AnimTimeLabel" Text="360 ms" FontSize="12" FontWeight="SemiBold" Width="50" VerticalAlignment="Center" TextAlignment="Right" Margin="0,0,12,0"/>
-                        <Slider x:Name="AnimTimeSlider" Minimum="50" Maximum="2000" TickFrequency="10" Width="150" VerticalAlignment="Center"
+                        <Slider x:Name="AnimTimeSlider" Minimum="50" Maximum="2000" TickFrequency="10"
                                 ValueChanged="AnimTime_Changed"/>
                     </StackPanel>
-                </ui:CardControl>
+                </ui:CardExpander>
 
                 <!-- Acceleration Delta -->
-                <ui:CardControl Margin="0,0,0,8">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Acceleration Delta" FontWeight="Medium"/>
-                            <TextBlock Text="Max inter-event time for acceleration to apply" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
+                <ui:CardExpander Margin="0,0,0,8" Header="Acceleration Delta">
+                    <StackPanel Margin="8,4">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                            <TextBlock Text="Max inter-event time for acceleration  " Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                            <TextBlock x:Name="AccelDeltaLabel" Text="70 ms" FontSize="12" FontWeight="SemiBold"/>
                         </StackPanel>
-                    </ui:CardControl.Header>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <TextBlock x:Name="AccelDeltaLabel" Text="70 ms" FontSize="12" FontWeight="SemiBold" Width="50" VerticalAlignment="Center" TextAlignment="Right" Margin="0,0,12,0"/>
-                        <Slider x:Name="AccelDeltaSlider" Minimum="20" Maximum="500" TickFrequency="10" Width="150" VerticalAlignment="Center"
+                        <Slider x:Name="AccelDeltaSlider" Minimum="20" Maximum="500" TickFrequency="10"
                                 ValueChanged="AccelDelta_Changed"/>
                     </StackPanel>
-                </ui:CardControl>
+                </ui:CardExpander>
 
                 <!-- Acceleration Max -->
-                <ui:CardControl Margin="0,0,0,8">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Acceleration Max" FontWeight="Medium"/>
-                            <TextBlock Text="Maximum acceleration multiplier" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
+                <ui:CardExpander Margin="0,0,0,8" Header="Acceleration Max">
+                    <StackPanel Margin="8,4">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                            <TextBlock Text="Maximum acceleration multiplier  " Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                            <TextBlock x:Name="AccelMaxLabel" Text="7.0x" FontSize="12" FontWeight="SemiBold"/>
                         </StackPanel>
-                    </ui:CardControl.Header>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <TextBlock x:Name="AccelMaxLabel" Text="7.0x" FontSize="12" FontWeight="SemiBold" Width="50" VerticalAlignment="Center" TextAlignment="Right" Margin="0,0,12,0"/>
-                        <Slider x:Name="AccelMaxSlider" Minimum="1" Maximum="20" TickFrequency="1" Width="150" VerticalAlignment="Center"
+                        <Slider x:Name="AccelMaxSlider" Minimum="1" Maximum="20" TickFrequency="1"
                                 ValueChanged="AccelMax_Changed"/>
                     </StackPanel>
-                </ui:CardControl>
+                </ui:CardExpander>
 
                 <!-- Tail to Head -->
-                <ui:CardControl Margin="0,0,0,24">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Tail-to-Head Ratio" FontWeight="Medium"/>
-                            <TextBlock Text="Easing end-to-start speed ratio" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
+                <ui:CardExpander Margin="0,0,0,16" Header="Tail-to-Head Ratio">
+                    <StackPanel Margin="8,4">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                            <TextBlock Text="Easing end-to-start speed ratio  " Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
+                            <TextBlock x:Name="TailHeadLabel" Text="3.0x" FontSize="12" FontWeight="SemiBold"/>
                         </StackPanel>
-                    </ui:CardControl.Header>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <TextBlock x:Name="TailHeadLabel" Text="3.0x" FontSize="12" FontWeight="SemiBold" Width="50" VerticalAlignment="Center" TextAlignment="Right" Margin="0,0,12,0"/>
-                        <Slider x:Name="TailHeadSlider" Minimum="1" Maximum="10" TickFrequency="1" Width="150" VerticalAlignment="Center"
+                        <Slider x:Name="TailHeadSlider" Minimum="1" Maximum="10" TickFrequency="1"
                                 ValueChanged="TailHead_Changed"/>
                     </StackPanel>
-                </ui:CardControl>
+                </ui:CardExpander>
 
                 <!-- Toggles -->
                 <TextBlock Text="Behavior" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
 
                 <ui:CardControl Margin="0,0,0,8">
                     <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Animation Easing" FontWeight="Medium"/>
-                            <TextBlock Text="Smoothly ease in and out of the scroll" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
-                        </StackPanel>
+                        <TextBlock Text="Animation Easing" FontWeight="Medium"/>
                     </ui:CardControl.Header>
                     <ui:ToggleSwitch x:Name="EasingToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>
                 </ui:CardControl>
 
                 <ui:CardControl Margin="0,0,0,8">
                     <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Shift Key → Horizontal Scroll" FontWeight="Medium"/>
-                            <TextBlock Text="Convert vertical to horizontal scroll holding Shift" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
-                        </StackPanel>
+                        <TextBlock Text="Shift Key → Horizontal Scroll" FontWeight="Medium"/>
                     </ui:CardControl.Header>
                     <ui:ToggleSwitch x:Name="ShiftHorizToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>
                 </ui:CardControl>
 
                 <ui:CardControl Margin="0,0,0,8">
                     <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Horizontal Smoothness" FontWeight="Medium"/>
-                            <TextBlock Text="Apply smooth scrolling to horizontal scrolls" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
-                        </StackPanel>
+                        <TextBlock Text="Horizontal Smoothness" FontWeight="Medium"/>
                     </ui:CardControl.Header>
                     <ui:ToggleSwitch x:Name="HorizSmoothnessToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>
                 </ui:CardControl>
 
                 <ui:CardControl Margin="0,0,0,8">
                     <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Reverse Wheel Direction" FontWeight="Medium"/>
-                            <TextBlock Text="Invert vertical and horizontal wheel directions" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
-                        </StackPanel>
+                        <TextBlock Text="Reverse Wheel Direction" FontWeight="Medium"/>
                     </ui:CardControl.Header>
                     <ui:ToggleSwitch x:Name="ReverseToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>
                 </ui:CardControl>
 
                 <ui:CardControl Margin="0,0,0,8">
                     <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Click to Stop Animation" FontWeight="Medium"/>
-                            <TextBlock Text="Stop scrolling immediately when a mouse button is clicked" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
-                        </StackPanel>
+                        <TextBlock Text="Click to Stop Animation" FontWeight="Medium"/>
                     </ui:CardControl.Header>
                     <ui:ToggleSwitch x:Name="ClickStopToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>
                 </ui:CardControl>

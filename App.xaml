@@ -9,20 +9,6 @@
                 <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
             </ResourceDictionary.MergedDictionaries>
-
-            <!-- WPF defaults Page and Window.Foreground to SystemColors.WindowText (black). -->
-            <!-- We override them globally to use Wpf.Ui's primary text color brush. -->
-            <Style TargetType="Page">
-                <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
-            </Style>
-            <Style TargetType="Window">
-                <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
-            </Style>
-            
-            <!-- We also set TextElement.Foreground globally just in case -->
-            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
-            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

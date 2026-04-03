@@ -1,0 +1,56 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [ "main", "master" ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Publish (Framework-Dependent / Portable)
+      run: dotnet publish SmoothScroller.csproj -c Release -o publish/portable
+
+    - name: Publish (Self-Contained win-x64)
+      run: dotnet publish SmoothScroller.csproj -c Release -r win-x64 -p:PublishSingleFile=true --self-contained true -o publish/win-x64
+
+    - name: Zip Artifacts
+      run: |
+        Compress-Archive -Path publish/portable/* -DestinationPath SmoothScroller-Portable.zip
+        Compress-Archive -Path publish/win-x64/* -DestinationPath SmoothScroller-win-x64.zip
+      shell: powershell
+
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: SmoothScroller-Builds
+        path: |
+          SmoothScroller-Portable.zip
+          SmoothScroller-win-x64.zip
+
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/v')
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          SmoothScroller-Portable.zip
+          SmoothScroller-win-x64.zip
+        generate_release_notes: true

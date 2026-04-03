@@ -4,256 +4,66 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Per-App">
 
-    <Page.Resources>
-        <!-- Style the GridView's header to blend into the dark modern theme -->
-        <Style TargetType="GridViewColumnHeader">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="Padding" Value="12,8,12,8"/>
-            <Setter Property="BorderThickness" Value="0,0,0,1"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorDefaultBrush}"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="GridViewColumnHeader">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                Padding="{TemplateBinding Padding}">
-                            <TextBlock Text="{TemplateBinding Content}" 
-                                       Foreground="{TemplateBinding Foreground}"
-                                       FontWeight="{TemplateBinding FontWeight}"
-                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                       VerticalAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+    <Grid Margin="24,16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <!-- Style standard ListViewItem just in case ui:ListView isn't enough -->
-        <Style TargetType="ListViewItem" BasedOn="{StaticResource {x:Type ui:ListViewItem}}">
-            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
-            <Setter Property="Padding" Value="12,0" />
-            <Setter Property="MinHeight" Value="40" />
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
-    </Page.Resources>
+        <TextBlock Grid.Row="0" Text="Per-App Profiles" FontSize="24" FontWeight="SemiBold" Margin="0,0,0,16"/>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,16,24,24">
-        <StackPanel MaxWidth="700" HorizontalAlignment="Left">
-
-            <TextBlock Text="Per-App Profiles" FontSize="28" FontWeight="SemiBold" Margin="0,0,0,24"/>
-
-            <TextBlock Text="Scroll Overrides" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,4"/>
-            <TextBlock Text="Override scroll behavior for specific applications." Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,12"/>
-
-            <!-- Add Override row -->
-            <Grid Margin="0,0,0,12">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <ui:TextBox Grid.Column="0" x:Name="OverrideAppBox" PlaceholderText="App name (e.g. devenv)" Margin="0,0,8,0"/>
-                <ui:Button Grid.Column="1" Content="Add Override" Click="AddOverride_Click" Icon="{ui:SymbolIcon Add24}" Appearance="Primary" Width="140"/>
-            </Grid>
-
-            <!-- Overrides list -->
-            <Border BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8" MinHeight="150" Margin="0,0,0,16">
-                <ui:ListView x:Name="OverridesListView" BorderThickness="0" Background="Transparent" SelectionMode="Single" SelectionChanged="OverridesListView_SelectionChanged">
-                    <ui:ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Application" Width="400" DisplayMemberBinding="{Binding AppName}"/>
-                            <GridViewColumn Header=""            Width="60">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Content="✕" Click="RemoveOverride_Click" Tag="{Binding AppName}" Padding="6,2"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ui:ListView.View>
-                </ui:ListView>
-            </Border>
-
-            <!-- Override Details Panel -->
-            <StackPanel x:Name="OverrideDetailPanel" Visibility="Collapsed" Margin="0,0,0,48">
-                <TextBlock x:Name="OverrideDetailHeader" Text="Settings for X" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,16"/>
-
-                <ui:CardControl Margin="0,0,0,8">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Step Size" FontWeight="Medium"/>
-                        </StackPanel>
-                    </ui:CardControl.Header>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <CheckBox x:Name="ChkInheritStep" Content="Use Global" Margin="0,0,12,0" Checked="Detail_Changed" Unchecked="Detail_Changed"/>
-                        <TextBlock x:Name="LblStep" Text="120 px" Width="50" TextAlignment="Right" Margin="0,0,12,0" VerticalAlignment="Center"/>
-                        <Slider x:Name="SldStep" Minimum="20" Maximum="500" TickFrequency="10" Width="150" VerticalAlignment="Center" ValueChanged="Detail_Changed"/>
-                    </StackPanel>
-                </ui:CardControl>
-
-                <ui:CardControl Margin="0,0,0,8">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Animation Time" FontWeight="Medium"/>
-                        </StackPanel>
-                    </ui:CardControl.Header>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <CheckBox x:Name="ChkInheritAnim" Content="Use Global" Margin="0,0,12,0" Checked="Detail_Changed" Unchecked="Detail_Changed"/>
-                        <TextBlock x:Name="LblAnim" Text="360 ms" Width="50" TextAlignment="Right" Margin="0,0,12,0" VerticalAlignment="Center"/>
-                        <Slider x:Name="SldAnim" Minimum="50" Maximum="2000" TickFrequency="10" Width="150" VerticalAlignment="Center" ValueChanged="Detail_Changed"/>
-                    </StackPanel>
-                </ui:CardControl>
-
-                <ui:CardControl Margin="0,0,0,8">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Acceleration Delta" FontWeight="Medium"/>
-                        </StackPanel>
-                    </ui:CardControl.Header>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <CheckBox x:Name="ChkInheritAccelDelta" Content="Use Global" Margin="0,0,12,0" Checked="Detail_Changed" Unchecked="Detail_Changed"/>
-                        <TextBlock x:Name="LblAccelDelta" Text="70 ms" Width="50" TextAlignment="Right" Margin="0,0,12,0" VerticalAlignment="Center"/>
-                        <Slider x:Name="SldAccelDelta" Minimum="20" Maximum="500" TickFrequency="10" Width="150" VerticalAlignment="Center" ValueChanged="Detail_Changed"/>
-                    </StackPanel>
-                </ui:CardControl>
-
-                <ui:CardControl Margin="0,0,0,8">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Acceleration Max" FontWeight="Medium"/>
-                        </StackPanel>
-                    </ui:CardControl.Header>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <CheckBox x:Name="ChkInheritAccelMax" Content="Use Global" Margin="0,0,12,0" Checked="Detail_Changed" Unchecked="Detail_Changed"/>
-                        <TextBlock x:Name="LblAccelMax" Text="7.0x" Width="50" TextAlignment="Right" Margin="0,0,12,0" VerticalAlignment="Center"/>
-                        <Slider x:Name="SldAccelMax" Minimum="1" Maximum="20" TickFrequency="1" Width="150" VerticalAlignment="Center" ValueChanged="Detail_Changed"/>
-                    </StackPanel>
-                </ui:CardControl>
-
-                <ui:CardControl Margin="0,0,0,8">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Tail-to-Head Ratio" FontWeight="Medium"/>
-                        </StackPanel>
-                    </ui:CardControl.Header>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <CheckBox x:Name="ChkInheritTail" Content="Use Global" Margin="0,0,12,0" Checked="Detail_Changed" Unchecked="Detail_Changed"/>
-                        <TextBlock x:Name="LblTail" Text="3.0x" Width="50" TextAlignment="Right" Margin="0,0,12,0" VerticalAlignment="Center"/>
-                        <Slider x:Name="SldTail" Minimum="1" Maximum="10" TickFrequency="1" Width="150" VerticalAlignment="Center" ValueChanged="Detail_Changed"/>
-                    </StackPanel>
-                </ui:CardControl>
-
-                <ui:CardControl Margin="0,0,0,8">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Animation Easing" FontWeight="Medium"/>
-                        </StackPanel>
-                    </ui:CardControl.Header>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <CheckBox x:Name="ChkInheritEasing" Content="Use Global" Margin="0,0,12,0" Checked="Detail_Changed" Unchecked="Detail_Changed"/>
-                        <ui:ToggleSwitch x:Name="TglEasing" Checked="Detail_Changed" Unchecked="Detail_Changed"/>
-                    </StackPanel>
-                </ui:CardControl>
-
-                <ui:CardControl Margin="0,0,0,8">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Shift Key → Horizontal" FontWeight="Medium"/>
-                        </StackPanel>
-                    </ui:CardControl.Header>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <CheckBox x:Name="ChkInheritShift" Content="Use Global" Margin="0,0,12,0" Checked="Detail_Changed" Unchecked="Detail_Changed"/>
-                        <ui:ToggleSwitch x:Name="TglShift" Checked="Detail_Changed" Unchecked="Detail_Changed"/>
-                    </StackPanel>
-                </ui:CardControl>
-
-                <ui:CardControl Margin="0,0,0,8">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Horizontal Smoothness" FontWeight="Medium"/>
-                        </StackPanel>
-                    </ui:CardControl.Header>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <CheckBox x:Name="ChkInheritHoriz" Content="Use Global" Margin="0,0,12,0" Checked="Detail_Changed" Unchecked="Detail_Changed"/>
-                        <ui:ToggleSwitch x:Name="TglHoriz" Checked="Detail_Changed" Unchecked="Detail_Changed"/>
-                    </StackPanel>
-                </ui:CardControl>
-
-                 <ui:CardControl Margin="0,0,0,8">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Reverse Wheel Direction" FontWeight="Medium"/>
-                        </StackPanel>
-                    </ui:CardControl.Header>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <CheckBox x:Name="ChkInheritReverse" Content="Use Global" Margin="0,0,12,0" Checked="Detail_Changed" Unchecked="Detail_Changed"/>
-                        <ui:ToggleSwitch x:Name="TglReverse" Checked="Detail_Changed" Unchecked="Detail_Changed"/>
-                    </StackPanel>
-                </ui:CardControl>
-
-                 <ui:CardControl Margin="0,0,0,8">
-                    <ui:CardControl.Header>
-                        <StackPanel>
-                            <TextBlock Text="Click to Stop" FontWeight="Medium"/>
-                        </StackPanel>
-                    </ui:CardControl.Header>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <CheckBox x:Name="ChkInheritClickStop" Content="Use Global" Margin="0,0,12,0" Checked="Detail_Changed" Unchecked="Detail_Changed"/>
-                        <ui:ToggleSwitch x:Name="TglClickStop" Checked="Detail_Changed" Unchecked="Detail_Changed"/>
-                    </StackPanel>
-                </ui:CardControl>
-
-            </StackPanel>
-
-            <TextBlock Text="App Filtering" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,4"/>
-            <TextBlock Text="Exclude apps from smooth scrolling entirely, or restrict smooth scrolling to only a few apps." Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,12"/>
-
-            <!-- Filter mode -->
-            <ui:CardControl Margin="0,0,0,12">
-                <ui:CardControl.Header>
-                    <StackPanel>
-                        <TextBlock Text="Filter Mode" FontWeight="Medium"/>
-                        <TextBlock Text="Choose how the app list below is interpreted"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12" TextWrapping="Wrap"/>
-                    </StackPanel>
-                </ui:CardControl.Header>
-                <StackPanel Orientation="Horizontal">
-                    <RadioButton x:Name="BlacklistRadio" Content="Blacklist" GroupName="FilterMode" Margin="0,0,16,0" Checked="FilterMode_Changed"/>
-                    <RadioButton x:Name="WhitelistRadio" Content="Whitelist" GroupName="FilterMode" Checked="FilterMode_Changed"/>
+        <!-- Filter mode -->
+        <ui:CardControl Grid.Row="1" Margin="0,0,0,12">
+            <ui:CardControl.Header>
+                <StackPanel>
+                    <TextBlock Text="Filter Mode" FontWeight="Medium"/>
+                    <TextBlock Text="Choose how the app list is interpreted"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
                 </StackPanel>
-            </ui:CardControl>
+            </ui:CardControl.Header>
+            <StackPanel Orientation="Horizontal">
+                <RadioButton x:Name="BlacklistRadio" Content="Blacklist" GroupName="FilterMode" Margin="0,0,16,0" Checked="FilterMode_Changed"/>
+                <RadioButton x:Name="WhitelistRadio" Content="Whitelist" GroupName="FilterMode" Checked="FilterMode_Changed"/>
+            </StackPanel>
+        </ui:CardControl>
 
-            <!-- Add filter row -->
-            <Grid Margin="0,0,0,12">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <ui:TextBox Grid.Column="0" x:Name="FilterAppBox" PlaceholderText="App name (e.g. cmd)" Margin="0,0,8,0"/>
-                <ui:Button Grid.Column="1" Content="Add to List" Click="AddFilter_Click" Icon="{ui:SymbolIcon Add24}" Appearance="Secondary" Width="140"/>
-            </Grid>
+        <!-- Add app row -->
+        <Grid Grid.Row="2" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <ui:TextBox Grid.Column="0" x:Name="AppNameBox"
+                        PlaceholderText="e.g. notepad, chrome, devenv"
+                        Margin="0,0,8,0"/>
+            <ui:Button Grid.Column="1" Content="Add to Filter List" Click="AddToList_Click" Margin="0,0,8,0"/>
+            <ui:Button Grid.Column="2" Content="Add Override"        Click="AddOverride_Click"/>
+        </Grid>
 
-            <!-- Filter list -->
-            <Border BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8" MinHeight="150">
-                <ui:ListView x:Name="FilterListView" BorderThickness="0" Background="Transparent">
-                    <ui:ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Application" Width="400" DisplayMemberBinding="{Binding AppName}"/>
-                            <GridViewColumn Header=""            Width="60">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Content="✕" Click="RemoveFilter_Click" Tag="{Binding AppName}" Padding="6,2"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ui:ListView.View>
-                </ui:ListView>
-            </Border>
+        <!-- App list -->
+        <Border Grid.Row="3" BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
+            <ListView x:Name="AppListView" BorderThickness="0" Background="Transparent"
+                      SelectionChanged="AppListView_SelectionChanged">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Application" Width="200" DisplayMemberBinding="{Binding AppName}"/>
+                        <GridViewColumn Header="Type"        Width="100" DisplayMemberBinding="{Binding EntryType}"/>
+                        <GridViewColumn Header="Step (px)"   Width="80"  DisplayMemberBinding="{Binding StepSize}"/>
+                        <GridViewColumn Header="Anim (ms)"   Width="80"  DisplayMemberBinding="{Binding AnimTime}"/>
+                        <GridViewColumn Header=""            Width="60">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="✕" Click="RemoveApp_Click" Tag="{Binding AppName}" Padding="6,2"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
 
-        </StackPanel>
-    </ScrollViewer>
+    </Grid>
 </Page>

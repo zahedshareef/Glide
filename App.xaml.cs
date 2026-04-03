@@ -122,14 +122,7 @@ public partial class App : System.Windows.Application
         try
         {
             bool minimized = e.Args.Contains("--minimized") || Settings.Current.StartMinimized;
-            if (!minimized)
-            {
-                OpenSettings();
-            }
-            else
-            {
-                Tray.ShowToast("SmoothScroller", "SmoothScroller is running in the background.");
-            }
+            if (!minimized) OpenSettings();
         }
         catch (Exception ex) { WriteCrash("Step 9 – OpenSettings", ex); return; }
 
@@ -140,14 +133,14 @@ public partial class App : System.Windows.Application
     {
         _currentProcessName = processName;
         ApplyCurrentProfile();
+        Logger.Log($"Foreground: {processName}");
     }
 
     private void ApplyCurrentProfile()
     {
-        var result = _profileResolver.Resolve(_currentProcessName);
-        if (result.Profile != null)
-            Animator.ApplyProfile(result.Profile, Settings.Current.ScaleWithDpi);
-        Logger.Log($"Foreground: {_currentProcessName} ({result.Reason})");
+        var profile = _profileResolver.Resolve(_currentProcessName);
+        if (profile != null)
+            Animator.ApplyProfile(profile, Settings.Current.ScaleWithDpi);
     }
 
     private void OnWheel(object? sender, Core.Hooks.WheelEventArgs e)
@@ -155,17 +148,18 @@ public partial class App : System.Windows.Application
         if (KeyboardHook.IsBypassActive) { e.Suppress = false; return; }
         if (Settings.Current.DisableTouchpad && TouchpadDetector.HasTouchpad) { e.Suppress = false; return; }
 
-        var profile = _profileResolver.Resolve(_currentProcessName).Profile;
+        var profile = _profileResolver.Resolve(_currentProcessName);
         if (profile == null) { e.Suppress = false; return; }
 
         bool horizontal = e.Horizontal || (profile.ShiftKeyHorizontal && KeyboardHook.IsShiftDown);
         e.Suppress = true;
+        Logger.Log($"Wheel delta={e.Delta} horiz={horizontal}");
         Animator.OnWheel(e.Delta, horizontal, e.Timestamp);
     }
 
     private void OnAnyButtonDown(object? sender, EventArgs e)
     {
-        var profile = _profileResolver.Resolve(_currentProcessName).Profile;
+        var profile = _profileResolver.Resolve(_currentProcessName);
         if (profile?.ClickToStop == true)
             Animator.StopAnimation();
     }

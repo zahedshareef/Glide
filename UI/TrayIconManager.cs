@@ -65,10 +65,5 @@ public sealed class TrayIconManager : IDisposable
         _trayIcon.ToolTipText = enabled ? "SmoothScroller — Active" : "SmoothScroller — Paused";
     }
 
-    public void ShowToast(string title, string message)
-    {
-        _trayIcon.ShowBalloonTip(title, message, BalloonIcon.Info);
-    }
-
     public void Dispose() => _trayIcon.Dispose();
 }
