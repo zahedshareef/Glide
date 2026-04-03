@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="SmoothScroller.csproj" />
+  <Project Path="SmoothScroller.Tests/SmoothScroller.Tests.csproj" />
+</Solution>
