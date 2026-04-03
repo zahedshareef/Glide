@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace Glide.Core.Hooks;
@@ -16,7 +16,7 @@ public sealed class MouseHookManager : IDisposable
     private const int WM_LBUTTONDOWN  = 0x0201;
     private const int WM_RBUTTONDOWN  = 0x0204;
     private const int WM_MBUTTONDOWN  = 0x0207;
-    private const int WM_MBUTTONUP    = 0x020A; // reuse is OK, actual value differs
+    private const int WM_MBUTTONUP    = 0x0208;
     private const int WM_XBUTTONDOWN  = 0x020B;
 
     [DllImport("user32.dll", SetLastError = true)]
@@ -53,7 +53,6 @@ public sealed class MouseHookManager : IDisposable
     private IntPtr _hookHandle = IntPtr.Zero;
     private readonly LowLevelMouseProc _proc;
     private Thread? _hookThread;
-    private volatile bool _running;
 
     // -- Events ----------------------------------------------------------------
     /// <summary>Raised on every wheel tick. Return value from subscriber ignored.</summary>
@@ -76,7 +75,6 @@ public sealed class MouseHookManager : IDisposable
     public void Install()
     {
         if (IsInstalled) return;
-        _running = true;
         _hookThread = new Thread(HookThreadProc) { IsBackground = true, Name = "MouseHookThread" };
         _hookThread.SetApartmentState(ApartmentState.STA);
         _hookThread.Start();
@@ -84,7 +82,6 @@ public sealed class MouseHookManager : IDisposable
 
     public void Uninstall()
     {
-        _running = false;
         if (_hookHandle != IntPtr.Zero)
         {
             UnhookWindowsHookEx(_hookHandle);
@@ -134,7 +131,7 @@ public sealed class MouseHookManager : IDisposable
             AnyButtonDown?.Invoke(this, EventArgs.Empty);
             MiddleButtonDown?.Invoke(this, new System.Drawing.Point(ms.pt.x, ms.pt.y));
         }
-        else if ((int)wParam == 0x020A) // WM_MBUTTONUP
+        else if (msg == WM_MBUTTONUP)
         {
             MiddleButtonUp?.Invoke(this, EventArgs.Empty);
         }
