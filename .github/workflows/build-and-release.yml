@@ -27,40 +27,40 @@ jobs:
       run: dotnet restore
 
     - name: Build
-      run: dotnet build SmoothScroller.slnx -c Release --no-restore
+      run: dotnet build Glide.slnx -c Release --no-restore
 
     - name: Test
-      run: dotnet test SmoothScroller.slnx -c Release --no-build
+      run: dotnet test Glide.slnx -c Release --no-build
 
     - name: Publish (Framework-Dependent / Portable)
       if: startsWith(github.ref, 'refs/tags/v')
-      run: dotnet publish SmoothScroller.csproj -c Release -o publish/portable
+      run: dotnet publish src/app/Glide.csproj -c Release -o publish/portable
 
     - name: Publish (Self-Contained win-x64)
       if: startsWith(github.ref, 'refs/tags/v')
-      run: dotnet publish SmoothScroller.csproj -c Release -r win-x64 -p:PublishSingleFile=true --self-contained true -o publish/win-x64
+      run: dotnet publish src/app/Glide.csproj -c Release -r win-x64 -p:PublishSingleFile=true --self-contained true -o publish/win-x64
 
     - name: Zip Artifacts
       if: startsWith(github.ref, 'refs/tags/v')
       run: |
-        Compress-Archive -Path publish/portable/* -DestinationPath SmoothScroller-Portable.zip
-        Compress-Archive -Path publish/win-x64/* -DestinationPath SmoothScroller-win-x64.zip
+        Compress-Archive -Path publish/portable/* -DestinationPath Glide-Portable.zip
+        Compress-Archive -Path publish/win-x64/* -DestinationPath Glide-win-x64.zip
       shell: powershell
 
     - name: Upload Build Artifacts
       if: startsWith(github.ref, 'refs/tags/v')
       uses: actions/upload-artifact@v4
       with:
-        name: SmoothScroller-Builds
+        name: Glide-Builds
         path: |
-          SmoothScroller-Portable.zip
-          SmoothScroller-win-x64.zip
+          Glide-Portable.zip
+          Glide-win-x64.zip
 
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/v')
       uses: softprops/action-gh-release@v2
       with:
         files: |
-          SmoothScroller-Portable.zip
-          SmoothScroller-win-x64.zip
+          Glide-Portable.zip
+          Glide-win-x64.zip
         generate_release_notes: true
