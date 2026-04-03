@@ -1,10 +1,10 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace SmoothScroller.Settings.Models;
+namespace Glide.Settings.Models;
 
 public class GlobalSettings
 {
-    // ── App-level toggles ────────────────────────────────────────────────────
+    // â”€â”€ App-level toggles â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     public bool IsEnabled       { get; set; } = true;
     public bool StartMinimized  { get; set; } = true;
     public bool AutoStart       { get; set; } = false;
@@ -16,7 +16,7 @@ public class GlobalSettings
     /// <summary>Hotkey (VK code) that passes raw scroll through while held. 0 = disabled.</summary>
     public int BypassHotkeyVk { get; set; } = 0x12; // VK_MENU = Alt
 
-    // ── Global profile (the fallback for all apps) ────────────────────────────
+    // â”€â”€ Global profile (the fallback for all apps) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     public ScrollProfile GlobalProfile { get; set; } = new ScrollProfile
     {
         StepSize             = 120,
@@ -32,14 +32,14 @@ public class GlobalSettings
         ClickToStop          = true,
     };
 
-    // ── Per-app overrides ─────────────────────────────────────────────────────
+    // â”€â”€ Per-app overrides â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     /// <summary>
     /// Key = process name without extension, lower-cased (e.g. "notepad", "devenv").
-    /// Value = partial profile — only non-null fields override the global profile.
+    /// Value = partial profile â€” only non-null fields override the global profile.
     /// </summary>
     public Dictionary<string, ScrollProfile> AppOverrides { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 
-    // ── Blacklist / Whitelist ─────────────────────────────────────────────────
+    // â”€â”€ Blacklist / Whitelist â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     /// <summary>
     /// When Mode = Blacklist: smooth scroll ALL apps EXCEPT those listed.
     /// When Mode = Whitelist: smooth scroll ONLY listed apps.

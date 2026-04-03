@@ -1,4 +1,4 @@
-<Page x:Class="SmoothScroller.UI.Pages.ScrollPage"
+﻿<Page x:Class="Glide.UI.Pages.ScrollPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -87,7 +87,7 @@
 
                 <ui:CardControl Margin="0,0,0,8">
                     <ui:CardControl.Header>
-                        <TextBlock Text="Shift Key → Horizontal Scroll" FontWeight="Medium"/>
+                        <TextBlock Text="Shift Key â†’ Horizontal Scroll" FontWeight="Medium"/>
                     </ui:CardControl.Header>
                     <ui:ToggleSwitch x:Name="ShiftHorizToggle" Checked="Toggle_Changed" Unchecked="Toggle_Changed"/>
                 </ui:CardControl>

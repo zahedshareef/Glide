@@ -1,6 +1,6 @@
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
-namespace SmoothScroller.Core.Input;
+namespace Glide.Core.Input;
 
 /// <summary>
 /// Wraps the Win32 <c>SendInput</c> API to inject synthetic mouse-wheel events

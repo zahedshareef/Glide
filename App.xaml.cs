@@ -1,13 +1,13 @@
-﻿using SmoothScroller.AutoStart;
-using SmoothScroller.Core.Engine;
-using SmoothScroller.Core.Hooks;
-using SmoothScroller.Core.Input;
-using SmoothScroller.Core.Window;
-using SmoothScroller.Diagnostics;
-using SmoothScroller.Settings;
-using SmoothScroller.UI;
+﻿using Glide.AutoStart;
+using Glide.Core.Engine;
+using Glide.Core.Hooks;
+using Glide.Core.Input;
+using Glide.Core.Window;
+using Glide.Diagnostics;
+using Glide.Settings;
+using Glide.UI;
 
-namespace SmoothScroller;
+namespace Glide;
 
 /// <summary>
 /// Application entry point. Wires up all services and installs hooks.
@@ -28,11 +28,11 @@ public partial class App : System.Windows.Application
     private string _currentProcessName = "";
 
     private static readonly string CrashLog =
-        System.IO.Path.Combine(System.IO.Path.GetTempPath(), "SmoothScroller_crash.log");
+        System.IO.Path.Combine(System.IO.Path.GetTempPath(), "Glide_crash.log");
 
     protected override void OnStartup(System.Windows.StartupEventArgs e)
     {
-        // ── Crash handlers — write to %TEMP%\SmoothScroller_crash.log ──────────
+        // ── Crash handlers — write to %TEMP%\Glide_crash.log ──────────
         AppDomain.CurrentDomain.UnhandledException += (_, ex) =>
             WriteCrash("AppDomain.UnhandledException", ex.ExceptionObject as Exception);
 
@@ -42,7 +42,7 @@ public partial class App : System.Windows.Application
             ex.Handled = true;   // keep the process alive so user can read the log
         };
 
-        System.IO.File.WriteAllText(CrashLog, $"[{System.DateTime.Now}] SmoothScroller starting...\n");
+        System.IO.File.WriteAllText(CrashLog, $"[{System.DateTime.Now}] Glide starting...\n");
         CrashLog_Append("OnStartup entered");
 
         try { base.OnStartup(e); } catch (System.Exception ex) { WriteCrash("base.OnStartup", ex); return; }

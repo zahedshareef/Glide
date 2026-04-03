@@ -1,16 +1,16 @@
-using System.IO;
+﻿using System.IO;
 
-namespace SmoothScroller.Diagnostics;
+namespace Glide.Diagnostics;
 
 /// <summary>
 /// Lightweight append-only logger for the diagnostics mode.
-/// Thread-safe; writes to %AppData%\SmoothScroller\diagnostics.log.
+/// Thread-safe; writes to %AppData%\Glide\diagnostics.log.
 /// </summary>
 public sealed class DiagnosticsLogger
 {
     private static readonly string LogPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "SmoothScroller", "diagnostics.log");
+        "Glide", "diagnostics.log");
 
     private readonly object _lock = new();
     public bool IsEnabled { get; set; }

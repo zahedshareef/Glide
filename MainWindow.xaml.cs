@@ -1,7 +1,7 @@
-﻿using SmoothScroller.UI.Pages;
+﻿using Glide.UI.Pages;
 using System.Windows;
 
-namespace SmoothScroller;
+namespace Glide;
 
 public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
 {

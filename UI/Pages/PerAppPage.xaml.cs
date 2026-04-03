@@ -1,16 +1,16 @@
-using SmoothScroller.Settings.Models;
+﻿using Glide.Settings.Models;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SmoothScroller.UI.Pages;
+namespace Glide.UI.Pages;
 
 public class AppListEntry
 {
     public string AppName   { get; set; } = "";
     public string EntryType { get; set; } = "Filter";
-    public string StepSize  { get; set; } = "—";
-    public string AnimTime  { get; set; } = "—";
+    public string StepSize  { get; set; } = "â€”";
+    public string AnimTime  { get; set; } = "â€”";
 }
 
 public partial class PerAppPage : System.Windows.Controls.Page
@@ -41,8 +41,8 @@ public partial class PerAppPage : System.Windows.Controls.Page
             {
                 AppName   = kv.Key,
                 EntryType = "Override",
-                StepSize  = kv.Value.StepSize?.ToString()      ?? "—",
-                AnimTime  = kv.Value.AnimationTime?.ToString() ?? "—",
+                StepSize  = kv.Value.StepSize?.ToString()      ?? "â€”",
+                AnimTime  = kv.Value.AnimationTime?.ToString() ?? "â€”",
             });
         _loading = false;
     }

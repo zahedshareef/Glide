@@ -1,15 +1,15 @@
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 
-namespace SmoothScroller.AutoStart;
+namespace Glide.AutoStart;
 
 /// <summary>
-/// Manages the Windows startup registry entry so SmoothScroller
+/// Manages the Windows startup registry entry so Glide
 /// launches automatically on user login.
 /// </summary>
 public static class StartupManager
 {
     private const string RegistryKey  = @"Software\Microsoft\Windows\CurrentVersion\Run";
-    private const string AppName      = "SmoothScroller";
+    private const string AppName      = "Glide";
 
     private static string ExePath =>
         System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName ?? "";

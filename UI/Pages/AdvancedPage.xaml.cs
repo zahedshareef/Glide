@@ -1,8 +1,8 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Windows;
 
-namespace SmoothScroller.UI.Pages;
+namespace Glide.UI.Pages;
 
 public partial class AdvancedPage : System.Windows.Controls.Page
 {
@@ -58,13 +58,13 @@ public partial class AdvancedPage : System.Windows.Controls.Page
 
     private void CheckUpdate_Click(object sender, RoutedEventArgs e)
     {
-        try { Process.Start(new ProcessStartInfo("https://github.com/SmoothScroller/releases") { UseShellExecute = true }); }
+        try { Process.Start(new ProcessStartInfo("https://github.com/Glide/releases") { UseShellExecute = true }); }
         catch { }
     }
 
     private void OpenLogFolder_Click(object sender, RoutedEventArgs e)
     {
-        var dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SmoothScroller");
+        var dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Glide");
         Directory.CreateDirectory(dir);
         Process.Start(new ProcessStartInfo("explorer.exe", dir));
     }

@@ -1,4 +1,4 @@
-<Page x:Class="SmoothScroller.UI.Pages.PerAppPage"
+﻿<Page x:Class="Glide.UI.Pages.PerAppPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -56,7 +56,7 @@
                         <GridViewColumn Header=""            Width="60">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="✕" Click="RemoveApp_Click" Tag="{Binding AppName}" Padding="6,2"/>
+                                    <Button Content="âœ•" Click="RemoveApp_Click" Tag="{Binding AppName}" Padding="6,2"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

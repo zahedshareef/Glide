@@ -1,6 +1,6 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace SmoothScroller.Settings.Models;
+namespace Glide.Settings.Models;
 
 /// <summary>
 /// Represents a scroll configuration profile. Can be used as global defaults
@@ -8,7 +8,7 @@ namespace SmoothScroller.Settings.Models;
 /// </summary>
 public class ScrollProfile
 {
-    // ── Physics ──────────────────────────────────────────────────────────────
+    // â”€â”€ Physics â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     /// <summary>Pixels to scroll per wheel notch (default 120).</summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? StepSize { get; set; }
@@ -29,7 +29,7 @@ public class ScrollProfile
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public double? TailToHeadRatio { get; set; }
 
-    // ── Toggles ──────────────────────────────────────────────────────────────
+    // â”€â”€ Toggles â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? AnimationEasing { get; set; }
 
@@ -42,7 +42,7 @@ public class ScrollProfile
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? ReverseDirection { get; set; }
 
-    // ── Advanced ─────────────────────────────────────────────────────────────
+    // â”€â”€ Advanced â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     /// <summary>Minimum wheel speed (delta/ms) below which animation is skipped (native scroll).</summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public double? SpeedThresholdForSmooth { get; set; }
@@ -51,7 +51,7 @@ public class ScrollProfile
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? ClickToStop { get; set; }
 
-    // ── Helpers ──────────────────────────────────────────────────────────────
+    // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /// <summary>
     /// Returns a resolved profile by merging this instance on top of

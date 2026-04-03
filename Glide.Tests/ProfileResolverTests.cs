@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Xunit;
-using SmoothScroller.Settings;
-using SmoothScroller.Settings.Models;
+using Glide.Settings;
+using Glide.Settings.Models;
 
-namespace SmoothScroller.Tests
+namespace Glide.Tests
 {
     public class ProfileResolverTests
     {

@@ -1,8 +1,8 @@
-using SmoothScroller.Core.Input;
-using SmoothScroller.Core.Window;
-using SmoothScroller.Settings.Models;
+﻿using Glide.Core.Input;
+using Glide.Core.Window;
+using Glide.Settings.Models;
 
-namespace SmoothScroller.Core.Engine;
+namespace Glide.Core.Engine;
 
 /// <summary>
 /// Physics-based scroll animation engine.
@@ -11,7 +11,7 @@ namespace SmoothScroller.Core.Engine;
 /// </summary>
 public sealed class ScrollAnimator : IDisposable
 {
-    // ── State ─────────────────────────────────────────────────────────────────
+    // â”€â”€ State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private readonly object _lock = new();
 
     // Vertical accumulator
@@ -36,7 +36,7 @@ public sealed class ScrollAnimator : IDisposable
     private ResolvedProfile _profile;
     private bool _scaleWithDpi;
 
-    // ── Config ────────────────────────────────────────────────────────────────
+    // â”€â”€ Config â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private const int TICK_MS = 8; // ~120 fps tick rate
 
     public ScrollAnimator()
@@ -53,7 +53,7 @@ public sealed class ScrollAnimator : IDisposable
         }
     }
 
-    // ── Public API ────────────────────────────────────────────────────────────
+    // â”€â”€ Public API â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /// <summary>Called by MouseHookManager when a raw wheel event fires.</summary>
     public void OnWheel(short rawDelta, bool horizontal, int timestamp)
@@ -65,7 +65,7 @@ public sealed class ScrollAnimator : IDisposable
             // Reverse direction
             double delta = p.ReverseDirection ? -rawDelta : rawDelta;
 
-            // Shift → horizontal
+            // Shift â†’ horizontal
             if (!horizontal && p.ShiftKeyHorizontal)
             {
                 // resolved by caller (KeyboardHookManager shift state)
@@ -121,7 +121,7 @@ public sealed class ScrollAnimator : IDisposable
         }
     }
 
-    // ── Timer loop ────────────────────────────────────────────────────────────
+    // â”€â”€ Timer loop â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private void EnsureTimerRunning()
     {
         // Must be called on the UI thread for DispatcherTimer
@@ -219,7 +219,7 @@ public sealed class ScrollAnimator : IDisposable
         }
     }
 
-    // ── Easing functions ──────────────────────────────────────────────────────
+    // â”€â”€ Easing functions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private static double EaseOutCubic(double t) => 1 - Math.Pow(1 - t, 3);
 
     public void Dispose()

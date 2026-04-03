@@ -1,6 +1,6 @@
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
-namespace SmoothScroller.Core.Window;
+namespace Glide.Core.Window;
 
 /// <summary>
 /// Polls the foreground window and raises <see cref="ForegroundAppChanged"/>

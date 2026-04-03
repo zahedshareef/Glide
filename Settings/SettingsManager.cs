@@ -1,14 +1,14 @@
-using System.IO;
+﻿using System.IO;
 using System.Text.Json;
-using SmoothScroller.Settings.Models;
+using Glide.Settings.Models;
 
-namespace SmoothScroller.Settings;
+namespace Glide.Settings;
 
 public class SettingsManager
 {
     private static readonly string SettingsPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "SmoothScroller", "settings.json");
+        "Glide", "settings.json");
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {

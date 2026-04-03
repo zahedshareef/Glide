@@ -1,6 +1,6 @@
-using Hardcodet.Wpf.TaskbarNotification;
+﻿using Hardcodet.Wpf.TaskbarNotification;
 
-namespace SmoothScroller.UI;
+namespace Glide.UI;
 
 /// <summary>
 /// Manages the system tray icon using Hardcodet.NotifyIcon.Wpf.
@@ -17,7 +17,7 @@ public sealed class TrayIconManager : IDisposable
     {
         _trayIcon = new TaskbarIcon
         {
-            ToolTipText = "SmoothScroller",
+            ToolTipText = "Glide",
             IconSource  = CreateIcon(enabled: true),
         };
 
@@ -41,13 +41,13 @@ public sealed class TrayIconManager : IDisposable
     {
         var menu = new System.Windows.Controls.ContextMenu();
 
-        var settingsItem = new System.Windows.Controls.MenuItem { Header = "⚙ Settings" };
+        var settingsItem = new System.Windows.Controls.MenuItem { Header = "âš™ Settings" };
         settingsItem.Click += (_, _) => OpenSettingsRequested?.Invoke();
 
-        var toggleItem = new System.Windows.Controls.MenuItem { Header = "⏸ Pause / Resume" };
+        var toggleItem = new System.Windows.Controls.MenuItem { Header = "â¸ Pause / Resume" };
         toggleItem.Click += (_, _) => ToggleRequested?.Invoke();
 
-        var exitItem = new System.Windows.Controls.MenuItem { Header = "✕ Exit" };
+        var exitItem = new System.Windows.Controls.MenuItem { Header = "âœ• Exit" };
         exitItem.Click += (_, _) => ExitRequested?.Invoke();
 
         menu.Items.Add(settingsItem);
@@ -62,7 +62,7 @@ public sealed class TrayIconManager : IDisposable
     public void UpdateIcon(bool enabled)
     {
         _trayIcon.IconSource  = CreateIcon(enabled);
-        _trayIcon.ToolTipText = enabled ? "SmoothScroller — Active" : "SmoothScroller — Paused";
+        _trayIcon.ToolTipText = enabled ? "Glide â€” Active" : "Glide â€” Paused";
     }
 
     public void Dispose() => _trayIcon.Dispose();

@@ -1,11 +1,11 @@
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace SmoothScroller.UI.Pages;
+namespace Glide.UI.Pages;
 
 public partial class ScrollPage : System.Windows.Controls.Page
 {
-    private bool _loading = true;  // true until OnLoaded completes — blocks Save/UpdateLabels during InitializeComponent
+    private bool _loading = true;  // true until OnLoaded completes â€” blocks Save/UpdateLabels during InitializeComponent
 
     public ScrollPage()
     {

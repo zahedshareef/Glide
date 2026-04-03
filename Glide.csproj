@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -10,20 +10,14 @@
     <UseWindowsForms>true</UseWindowsForms>
     <!-- DPI awareness: per-monitor v2 -->
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <RootNamespace>SmoothScroller</RootNamespace>
-    <AssemblyName>SmoothScroller</AssemblyName>
+    <RootNamespace>Glide</RootNamespace>
+    <AssemblyName>Glide</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
     <!-- Microsoft.Win32.Registry is included in the desktop framework; no explicit ref needed -->
     <PackageReference Include="WPF-UI" Version="3.*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="SmoothScroller.Tests\**" />
-    <EmbeddedResource Remove="SmoothScroller.Tests\**" />
-    <None Remove="SmoothScroller.Tests\**" />
   </ItemGroup>
 
 </Project>

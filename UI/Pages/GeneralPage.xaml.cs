@@ -1,9 +1,9 @@
-using System.IO;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using SmoothScroller.AutoStart;
+using Glide.AutoStart;
 
-namespace SmoothScroller.UI.Pages;
+namespace Glide.UI.Pages;
 
 public partial class GeneralPage : System.Windows.Controls.Page
 {
@@ -68,7 +68,7 @@ public partial class GeneralPage : System.Windows.Controls.Page
 
     private void Export_Click(object sender, RoutedEventArgs e)
     {
-        var dlg = new Microsoft.Win32.SaveFileDialog { Filter = "JSON|*.json", FileName = "smoothscroller-settings.json" };
+        var dlg = new Microsoft.Win32.SaveFileDialog { Filter = "JSON|*.json", FileName = "Glide-settings.json" };
         if (dlg.ShowDialog() == true)
             File.WriteAllText(dlg.FileName, App.Settings.ExportJson());
     }
@@ -85,7 +85,7 @@ public partial class GeneralPage : System.Windows.Controls.Page
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Import failed: {ex.Message}", "SmoothScroller",
+                System.Windows.MessageBox.Show($"Import failed: {ex.Message}", "Glide",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

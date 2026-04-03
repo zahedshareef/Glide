@@ -1,6 +1,6 @@
-using System.Windows;
+﻿using System.Windows;
 
-namespace SmoothScroller.UI.Pages;
+namespace Glide.UI.Pages;
 
 public partial class DiagnosticsPage : System.Windows.Controls.Page
 {
