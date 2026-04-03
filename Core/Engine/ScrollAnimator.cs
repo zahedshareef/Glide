@@ -11,7 +11,7 @@ namespace Glide.Core.Engine;
 /// </summary>
 public sealed class ScrollAnimator : IDisposable
 {
-    // â”€â”€ State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- State -----------------------------------------------------------------
     private readonly object _lock = new();
 
     // Vertical accumulator
@@ -36,7 +36,7 @@ public sealed class ScrollAnimator : IDisposable
     private ResolvedProfile _profile;
     private bool _scaleWithDpi;
 
-    // â”€â”€ Config â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Config ----------------------------------------------------------------
     private const int TICK_MS = 8; // ~120 fps tick rate
 
     public ScrollAnimator()
@@ -53,7 +53,7 @@ public sealed class ScrollAnimator : IDisposable
         }
     }
 
-    // â”€â”€ Public API â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Public API ------------------------------------------------------------
 
     /// <summary>Called by MouseHookManager when a raw wheel event fires.</summary>
     public void OnWheel(short rawDelta, bool horizontal, int timestamp)
@@ -65,7 +65,7 @@ public sealed class ScrollAnimator : IDisposable
             // Reverse direction
             double delta = p.ReverseDirection ? -rawDelta : rawDelta;
 
-            // Shift â†’ horizontal
+            // Shift -> horizontal
             if (!horizontal && p.ShiftKeyHorizontal)
             {
                 // resolved by caller (KeyboardHookManager shift state)
@@ -121,7 +121,7 @@ public sealed class ScrollAnimator : IDisposable
         }
     }
 
-    // â”€â”€ Timer loop â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Timer loop ------------------------------------------------------------
     private void EnsureTimerRunning()
     {
         // Must be called on the UI thread for DispatcherTimer
@@ -219,7 +219,7 @@ public sealed class ScrollAnimator : IDisposable
         }
     }
 
-    // â”€â”€ Easing functions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Easing functions ------------------------------------------------------
     private static double EaseOutCubic(double t) => 1 - Math.Pow(1 - t, 3);
 
     public void Dispose()

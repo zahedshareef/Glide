@@ -41,13 +41,13 @@ public sealed class TrayIconManager : IDisposable
     {
         var menu = new System.Windows.Controls.ContextMenu();
 
-        var settingsItem = new System.Windows.Controls.MenuItem { Header = "âš™ Settings" };
+        var settingsItem = new System.Windows.Controls.MenuItem { Header = "⚙ Settings" };
         settingsItem.Click += (_, _) => OpenSettingsRequested?.Invoke();
 
         var toggleItem = new System.Windows.Controls.MenuItem { Header = "â¸ Pause / Resume" };
         toggleItem.Click += (_, _) => ToggleRequested?.Invoke();
 
-        var exitItem = new System.Windows.Controls.MenuItem { Header = "âœ• Exit" };
+        var exitItem = new System.Windows.Controls.MenuItem { Header = "✕ Exit" };
         exitItem.Click += (_, _) => ExitRequested?.Invoke();
 
         menu.Items.Add(settingsItem);
@@ -62,7 +62,7 @@ public sealed class TrayIconManager : IDisposable
     public void UpdateIcon(bool enabled)
     {
         _trayIcon.IconSource  = CreateIcon(enabled);
-        _trayIcon.ToolTipText = enabled ? "Glide â€” Active" : "Glide â€” Paused";
+        _trayIcon.ToolTipText = enabled ? "Glide - Active" : "Glide - Paused";
     }
 
     public void Dispose() => _trayIcon.Dispose();

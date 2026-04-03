@@ -56,7 +56,7 @@
                         <GridViewColumn Header=""            Width="60">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="âœ•" Click="RemoveApp_Click" Tag="{Binding AppName}" Padding="6,2"/>
+                                    <Button Content="✕" Click="RemoveApp_Click" Tag="{Binding AppName}" Padding="6,2"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

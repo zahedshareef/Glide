@@ -9,8 +9,8 @@ public class AppListEntry
 {
     public string AppName   { get; set; } = "";
     public string EntryType { get; set; } = "Filter";
-    public string StepSize  { get; set; } = "â€”";
-    public string AnimTime  { get; set; } = "â€”";
+    public string StepSize  { get; set; } = "-";
+    public string AnimTime  { get; set; } = "-";
 }
 
 public partial class PerAppPage : System.Windows.Controls.Page
@@ -41,8 +41,8 @@ public partial class PerAppPage : System.Windows.Controls.Page
             {
                 AppName   = kv.Key,
                 EntryType = "Override",
-                StepSize  = kv.Value.StepSize?.ToString()      ?? "â€”",
-                AnimTime  = kv.Value.AnimationTime?.ToString() ?? "â€”",
+                StepSize  = kv.Value.StepSize?.ToString()      ?? "-",
+                AnimTime  = kv.Value.AnimationTime?.ToString() ?? "-",
             });
         _loading = false;
     }

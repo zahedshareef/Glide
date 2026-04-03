@@ -42,7 +42,7 @@ public sealed class KeyboardHookManager : IDisposable
     [StructLayout(LayoutKind.Sequential)]
     private struct KBDLLHOOKSTRUCT { public int vkCode, scanCode, flags, time; public IntPtr dwExtraInfo; }
 
-    // â”€â”€ State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- State -----------------------------------------------------------------
     private IntPtr _hookHandle = IntPtr.Zero;
     private readonly LowLevelKeyboardProc _proc;
     private Thread? _hookThread;
@@ -50,7 +50,7 @@ public sealed class KeyboardHookManager : IDisposable
     private bool _shiftDown;
     private int  _bypassVk;
 
-    // â”€â”€ Events â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Events ----------------------------------------------------------------
     public event EventHandler<bool>? ShiftStateChanged;
     public event EventHandler<KeyScrollEventArgs>? KeyScrollEvent;
     public event EventHandler<bool>? BypassHotkeyChanged;
@@ -97,7 +97,7 @@ public sealed class KeyboardHookManager : IDisposable
         int msg = (int)wParam;
         bool down = msg == WM_KEYDOWN || msg == WM_SYSKEYDOWN;
 
-        // â”€â”€ Shift tracking â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // -- Shift tracking ----------------------------------------------------
         if (kb.vkCode == VK_SHIFT || kb.vkCode == VK_LSHIFT || kb.vkCode == VK_RSHIFT)
         {
             if (_shiftDown != down)
@@ -107,7 +107,7 @@ public sealed class KeyboardHookManager : IDisposable
             }
         }
 
-        // â”€â”€ Bypass hotkey tracking â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // -- Bypass hotkey tracking --------------------------------------------
         if (_bypassVk != 0 && kb.vkCode == _bypassVk)
         {
             bool active = down;
@@ -118,7 +118,7 @@ public sealed class KeyboardHookManager : IDisposable
             }
         }
 
-        // â”€â”€ Keyboard scroll keys â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // -- Keyboard scroll keys ----------------------------------------------
         if (down && KeyScrollEvent != null)
         {
             int scrollDelta = kb.vkCode switch
@@ -139,7 +139,7 @@ public sealed class KeyboardHookManager : IDisposable
             {
                 var args = new KeyScrollEventArgs((short)scrollDelta, horizontal);
                 KeyScrollEvent.Invoke(this, args);
-                // Don't suppress keyboard events â€” too complex; just route through animator
+                // Don't suppress keyboard events - too complex; just route through animator
             }
         }
 

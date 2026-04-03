@@ -8,7 +8,7 @@ namespace Glide.Settings.Models;
 /// </summary>
 public class ScrollProfile
 {
-    // â”€â”€ Physics â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Physics --------------------------------------------------------------
     /// <summary>Pixels to scroll per wheel notch (default 120).</summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? StepSize { get; set; }
@@ -29,7 +29,7 @@ public class ScrollProfile
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public double? TailToHeadRatio { get; set; }
 
-    // â”€â”€ Toggles â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Toggles --------------------------------------------------------------
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? AnimationEasing { get; set; }
 
@@ -42,7 +42,7 @@ public class ScrollProfile
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? ReverseDirection { get; set; }
 
-    // â”€â”€ Advanced â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Advanced -------------------------------------------------------------
     /// <summary>Minimum wheel speed (delta/ms) below which animation is skipped (native scroll).</summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public double? SpeedThresholdForSmooth { get; set; }
@@ -51,7 +51,7 @@ public class ScrollProfile
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? ClickToStop { get; set; }
 
-    // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Helpers --------------------------------------------------------------
 
     /// <summary>
     /// Returns a resolved profile by merging this instance on top of

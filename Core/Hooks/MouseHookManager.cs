@@ -9,7 +9,7 @@ namespace Glide.Core.Hooks;
 /// </summary>
 public sealed class MouseHookManager : IDisposable
 {
-    // â”€â”€ P/Invoke â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- P/Invoke -------------------------------------------------------------
     private const int WH_MOUSE_LL = 14;
     private const int WM_MOUSEWHEEL   = 0x020A;
     private const int WM_MOUSEHWHEEL  = 0x020E;
@@ -49,13 +49,13 @@ public sealed class MouseHookManager : IDisposable
     // Injected messages carry this extra info to avoid re-entrancy
     private const int INJECTED_EXTRA = 0x12345678;
 
-    // â”€â”€ State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- State -----------------------------------------------------------------
     private IntPtr _hookHandle = IntPtr.Zero;
     private readonly LowLevelMouseProc _proc;
     private Thread? _hookThread;
     private volatile bool _running;
 
-    // â”€â”€ Events â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Events ----------------------------------------------------------------
     /// <summary>Raised on every wheel tick. Return value from subscriber ignored.</summary>
     public event EventHandler<WheelEventArgs>? WheelEvent;
     /// <summary>Raised on any mouse button press (for click-to-stop).</summary>
@@ -72,7 +72,7 @@ public sealed class MouseHookManager : IDisposable
         _proc = HookProc; // keep delegate alive
     }
 
-    // â”€â”€ Install / Uninstall â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Install / Uninstall --------------------------------------------------
     public void Install()
     {
         if (IsInstalled) return;
@@ -101,7 +101,7 @@ public sealed class MouseHookManager : IDisposable
         System.Windows.Forms.Application.Run();
     }
 
-    // â”€â”€ Hook Callback â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Hook Callback ---------------------------------------------------------
     private IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam)
     {
         if (nCode < 0) return CallNextHookEx(_hookHandle, nCode, wParam, lParam);

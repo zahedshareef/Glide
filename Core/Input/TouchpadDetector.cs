@@ -33,7 +33,7 @@ public sealed class TouchpadDetector
         public uint cbSize;
         public uint dwType;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
-        public byte[] data; // union â€” large enough for all sub-types
+        public byte[] data; // union - large enough for all sub-types
     }
 
     private readonly HashSet<string> _touchpadPaths = new(StringComparer.OrdinalIgnoreCase);

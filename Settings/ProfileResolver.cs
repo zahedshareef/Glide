@@ -26,16 +26,16 @@ public class ProfileResolver
 
         var key = processName.ToLowerInvariant();
 
-        // â”€â”€ Filter check â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // -- Filter check ------------------------------------------------------
         bool inList = settings.FilterList.Any(e => e.Equals(key, StringComparison.OrdinalIgnoreCase));
 
         if (settings.FilterMode == FilterMode.Blacklist && inList)
-            return null; // Blacklisted â€” pass raw scroll through
+            return null; // Blacklisted - pass raw scroll through
 
         if (settings.FilterMode == FilterMode.Whitelist && !inList)
-            return null; // Not whitelisted â€” pass raw scroll through
+            return null; // Not whitelisted - pass raw scroll through
 
-        // â”€â”€ Profile resolution â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // -- Profile resolution ------------------------------------------------
         if (settings.AppOverrides.TryGetValue(key, out var appProfile))
             return appProfile.Resolve(settings.GlobalProfile);
 
