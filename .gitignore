@@ -292,6 +292,14 @@ FakesAssemblies/
 # Node.js Tools for Visual Studio
 .ntvs_analysis.dat
 node_modules/
+dist/
+src-tauri/target/
+src-tauri/gen/
+src-tauri/icons/*.png
+src-tauri/icons/*.icns
+src-tauri/icons/*Logo.png
+src-tauri/icons/android/
+src-tauri/icons/ios/
 
 # Visual Studio 6 build log
 *.plg
